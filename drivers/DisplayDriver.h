@@ -10,7 +10,7 @@
 
 #include "lvgl.h"
 #include "stdint.h"
-#include "../lv_conf_lib.h"
+#include "lv_conf.h"
 
 class DisplayDriver
 {
