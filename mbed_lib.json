@@ -1,0 +1,239 @@
+{
+    "name": "mbed-lvgl",
+    "config": {
+	"horizontal_res": {
+	    "help": "The horizontal resolution of your display",
+	    "macro_name": "LV_HOR_RES",
+	    "value": 128
+	},
+	"vertical_res": {
+	    "help": "The vertical resolution of your display",
+	    "macro_name": "LV_VER_RES",
+	    "value": 128
+	},
+	"display_dpi": {
+	    "help": "The DPI of your display",
+	    "macro_name": "LV_DPI",
+	    "value": 50
+	},
+	"vdb_size": {
+	    "help": "Configure the size of the virtual display buffer, typical is ~1/10 of screen",
+	    "macro_name": "LV_VDB_SIZE"
+	},
+	"antialias": {
+	    "help": "Enable/disable antialiasing",
+	    "macro_name": "LV_ANTIALIAS",
+	    "value": 1
+	},
+	"refresh_period": {
+	    "help": "Screen refresh period in milliseconds",
+	    "macro_name": "LV_REF_PERIOD",
+	    "value": 50
+	},
+	"inv_fifo_size": {
+	    "help": "The average count of objects on the screen",
+	    "macro_name": "LV_INV_FIFO_SIZE",
+	    "value": 32
+	},
+	"input_device_read_period": {
+	    "help": "Input device read period in milliseconds",
+	    "macro_name": "LV_INDEV_READ_PERIOD",
+	    "value": 50
+	},
+	"input_device_point_marker": {
+	    "help": "Enable/disable marking pressed points",
+	    "macro_name": "LV_INDEV_POINT_MARKER",
+	    "value": 0
+	},
+	"input_device_drag_limit": {
+	    "help": "Drag threshold in pixels",
+	    "macro_name": "LV_INDEV_DRAG_LIMIT",
+	    "value": 10
+	},
+	"input_device_drag_throw": {
+	    "help": "Drag throw slow-down in %. Greater value means faster slow-down",
+	    "macro_name": "LV_INDEV_DRAG_THROW",
+	    "value": 20
+	},
+	"input_device_long_press_time": {
+	    "help": "Long press time in milliseconds",
+	    "macro_name": "LV_INDEV_LONG_PRESS_TIME",
+	    "value": 400
+	},
+	"input_device_long_press_rep_time": {
+	    "help": "Repeated trigger period in long press (ms)",
+	    "macro_name": "LV_INDEV_LONG_PRESS_REP_TIME",
+	    "value": 100
+	},
+	"color_depth": {
+	    "help": "Color depth of display (1/8/16/24)",
+	    "macro_name": "LV_COLOR_DEPTH",
+	    "value": 16
+	},
+	"transparent_color": {
+	    "help": "Image pixels with this color will not be drawn (with chroma keying)",
+	    "macro_name": "LV_COLOR_TRANSP",
+	    "value": "LV_COLOR_LIME"
+	},
+	"utf8_enabled": {
+	    "help": "Enable UTF-8 coded Unicode character usage",
+	    "macro_name": "LV_TXT_UTF8",
+	    "value": 1
+	},
+	"enable_animation": {
+	    "help": "Enable animations",
+	    "macro_name": "USE_LV_ANIMATION",
+	    "value": 1
+	},
+	"enable_shadows": {
+	    "help": "Enable shadows",
+	    "macro_name": "USE_LV_SHADOW",
+	    "value": 1
+	},
+	"enable_groups": {
+	    "help": "Enable object groups (for keyboards)",
+	    "macro_name": "USE_LV_GROUP",
+	    "value": 1
+	},
+	"enable_gpu": {
+	    "help": "Enable GPU interface",
+	    "macro_name": "USE_LV_GPU",
+	    "value": 0
+	},
+	"enable_real_draw": {
+	    "help": "Enable drawing directly to the frame buffer instead of VDB (required if vdb_size = 0)",
+	    "macro_name": "USE_LV_REAL_DRAW",
+	    "value": 0
+	},
+	"enable_filesystem": {
+	    "help": "Enable file system support (required by images)",
+	    "macro_name": "USE_LV_FILESYSTEM",
+	    "value": 1
+	},
+	"vla_supported": {
+	    "help": "Variable length array is supported",
+	    "macro_name": "LV_COMPILER_VLA_SUPPORTED",
+	    "value": 1
+	},
+	"theme": {
+	    "help": "Set the theme used. Values can be: 1 (default), 2 (alien), 3 (night), 4 (mono), 5 (material), 6 (zen)",
+	    "macro_name": "LV_THEME",
+	    "value": 1
+	},
+	"enable_labels": {
+	    "help": "Enable label objects",
+	    "macro_name": "USE_LV_LABEL",
+	    "value": 1
+	},
+	"enable_images": {
+	    "help": "Enable image objects (dependencies: labels, filesystem)",
+	    "macro_name": "USE_LV_IMG",
+	    "value": 1
+	},
+	"enable_containers": {
+	    "help": "Enable container objects",
+	    "macro_name": "USE_LV_CONT",
+	    "value": 1
+	},
+	"enable_pages": {
+	    "help": "Enable page objects",
+	    "macro_name": "USE_LV_PAGE",
+	    "value": 1
+	},
+	"enable_windows": {
+	    "help": "Enable window objects",
+	    "macro_name": "USE_LV_WIN",
+	    "value": 1
+	},
+	"enable_tabviews": {
+	    "help": "Enable tab-view objects",
+	    "macro_name": "USE_LV_TABVIEW",
+	    "value": 1
+	},
+	"enable_bar": {
+	    "help": "Enable bar visualizers",
+	    "macro_name": "USE_LV_BAR",
+	    "value": 1
+	},
+	"enable_line_meter": {
+	    "help": "Enable line meter visualizers",
+	    "macro_name": "USE_LV_LMETER",
+	    "value": 1
+	},
+	"enable_gauge": {
+	    "help": "Enable gauge visualizers (requires bar, lmeter)",
+	    "macro_name": "USE_LV_GAUGE",
+	    "value": 1
+	},
+	"enable_chart": {
+	    "help": "Enable chart visualizers",
+	    "macro_name": "USE_LV_CHART",
+	    "value": 1
+	},
+	"enable_led": {
+	    "help": "Enable LED visualizers",
+	    "macro_name": "USE_LV_LED",
+	    "value": 1
+	},
+	"enable_message_box": {
+	    "help": "Enable message boxes (requires lv_rect, lv_btnm, lv_label)",
+	    "macro_name": "USE_LV_MBOX",
+	    "value": 1
+	},
+	"enable_text_area": {
+	    "help": "Enable text areas (requires lv_label, lv_page)",
+	    "macro_name": "USE_LV_TA",
+	    "value": 1
+	},
+	"enable_button": {
+	    "help": "Enable buttons (requires lv_cont)",
+	    "macro_name": "USE_LV_BTN",
+	    "value": 1
+	},
+	"enable_buttom_matrix": {
+	    "help": "Enable button matrices",
+	    "macro_name": "USE_LV_BTNM",
+	    "value": 1
+	},
+	"enable_keyboard": {
+	    "help": "Enable keyboards (requires lv_btnm)",
+	    "macro_name": "USE_LV_KB",
+	    "value": 1
+	},
+	"enable_checkbox": {
+	    "help": "Enable check boxes (requires lv_btn, lv_label)",
+	    "macro_name": "USE_LV_CB",
+	    "value": 1
+	},
+	"enable_list": {
+	    "help": "Enable lists (requires lv_page, lv_btn, lv_label)",
+	    "macro_name": "USE_LV_LIST",
+	    "value": 1
+	},
+	"enable_dropdown_list": {
+	    "help": "Enable drop down lists (requires lv_page, lv_label)",
+	    "macro_name": "USE_LV_DDLIST",
+	    "value": 1
+	},
+	"enable_roller": {
+	    "help": "Enable rollers (requires lv_dropdownlist)",
+	    "macro_name": "USE_LV_ROLLER",
+	    "value": 1
+	},
+	"enable_slider": {
+	    "help": "Enable sliders (requires lv_bar)",
+	    "macro_name": "USE_LV_SLIDER",
+	    "value": 1
+	},
+	"enable_switch": {
+	    "help": "Enable switches (requires lv_slider)",
+	    "macro_name": "USE_LV_SW",
+	    "value": 1
+	}
+    },
+    "target_overrides": {
+	"STM32F407xG": {
+	    "device_has_add": ["I8080_8BIT"]
+	}
+    }
+}
