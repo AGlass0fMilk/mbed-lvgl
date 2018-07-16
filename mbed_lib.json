@@ -343,7 +343,7 @@
     },
     "target_overrides": {
 	"STM32F407xG": {
-	    "device_has_add": ["I8080_8BIT"]
+	    "device_has_add": ["PARALLEL_8BIT"]
 	}
     }
 }
