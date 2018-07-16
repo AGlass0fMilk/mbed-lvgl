@@ -46,14 +46,20 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		void start(void);
 
 		/**
+		 * Stop the LittleVGL ticker
+		 */
+		void stop(void);
+
+		/**
 		 * Updates the LitteVGL graphics system
 		 * @note This should be called by the application every 1 to 10ms
 		 */
 		void update(void);
 
+	protected:
+
 		/**
 		 * Internal ticker function
-		 * @note This should not be called by the application code!
 		 */
 		void tick(void);
 
@@ -97,7 +103,7 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		DisplayDriver* _driver;
 
 		/** Ticker for updating LittleVGL ticker */
-		mbed::Ticker* _ticker;
+		mbed::Ticker _ticker;
 
 		/** Display driver C structure */
 		lv_disp_drv_t _disp_drv_instance;

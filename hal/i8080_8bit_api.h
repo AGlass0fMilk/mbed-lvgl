@@ -27,7 +27,7 @@
 #include "stdint.h"
 #include "lvgl_objects.h"
 
-//#if DEVICE_I8080_8BIT
+#if DEVICE_I8080_8BIT
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,17 +58,21 @@ void i8080_8bit_free(i8080_8bit_t *obj);
 
 /** Write a single byte to the i8080_8bit bus
  * @param obj The i8080_8bit object
+ * @param address Address to write to
  * @param value Byte to write to bus
  */
-void i8080_8bit_write(i8080_8bit_t* obj, uint8_t value);
+void i8080_8bit_write(i8080_8bit_t* obj, uint32_t address, uint8_t value);
 
 /** Write bytes to the i8080_8bit bus
  *
  * @param obj The i8080_8bit object
+ * @param address Starting address to write to
  * @param value Pointer to array of values to write out
  * @param len Number of bytes to write
+ * @param increment_addr increment address after each byte?
  */
-void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len);
+void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint32_t address,
+		uint8_t* value, uint32_t len, uint8_t increment_addr);
 
 /** Read the i8080_8bit bus
  *
@@ -83,6 +87,6 @@ uint8_t i8080_8bit_read(i8080_8bit_t *obj);
 }
 #endif
 
-//#endif
+#endif /* DEVICE_I8080_8BIT */
 
 #endif /* LVGL_HAL_I8080_8BIT_API_H_ */
