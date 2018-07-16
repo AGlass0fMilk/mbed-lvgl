@@ -116,37 +116,37 @@
 	    "value": 1
 	},
 	"use_theme_templ": {
-	    "help": "Template theme enabled"
+	    "help": "Template theme enabled",
 	    "macro_name": "USE_LV_THEME_TEMPL",
 	    "value": 0
 	},
 	"use_theme_default": {
-	    "help": "Default theme enabled"
+	    "help": "Default theme enabled",
 	    "macro_name": "USE_LV_THEME_DEFAULT",
 	    "value": 1
 	},
 	"use_theme_alien": {
-	    "help": "Alien theme enabled"
+	    "help": "Alien theme enabled",
 	    "macro_name": "USE_LV_THEME_ALIEN",
 	    "value": 1
 	},
 	"use_theme_night": {
-	    "help": "Night theme enabled"
+	    "help": "Night theme enabled",
 	    "macro_name": "USE_LV_THEME_NIGHT",
 	    "value": 1
 	},
 	"use_theme_mono": {
-	    "help": "Mono theme enabled"
+	    "help": "Mono theme enabled",
 	    "macro_name": "USE_LV_THEME_MONO",
 	    "value": 1
 	},
 	"use_theme_material": {
-	    "help": "Material theme enabled"
+	    "help": "Material theme enabled",
 	    "macro_name": "USE_LV_THEME_MATERIAL",
 	    "value": 1
 	},
 	"use_theme_zen": {
-	    "help": "Zen theme enabled"
+	    "help": "Zen theme enabled",
 	    "macro_name": "USE_LV_THEME_ZEN",
 	    "value": 1
 	},
