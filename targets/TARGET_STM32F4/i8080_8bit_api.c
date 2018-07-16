@@ -28,9 +28,18 @@
 
 #include "platform/mbed_assert.h"
 
-#define CMD 0
-#define DATA (1 << 16)
-#define SRAM_BANK_ADDR_8BIT(d) *((__IO uint8_t*)(0x60000000 + d))
+//#define CMD 0
+//#define DATA (1 << 16)
+//#define SRAM_BANK_ADDR_8BIT(d) *((__IO uint8_t*)(0x60000000 + d))
+
+/**
+ * The FSMC peripheral maps this address space to an external memory device
+ * So simply writing to these addresses in code will initiate a transfer on the
+ * FSMC parallel bus
+ *
+ * The NORSRAM _BANK1 we use here starts at address 0x60000000
+ */
+#define SRAM_START_ADDRESS 0x60000000
 
 void i8080_8bit_init(i8080_8bit_t *obj)
 {
@@ -64,33 +73,46 @@ void i8080_8bit_init(i8080_8bit_t *obj)
 	// Initialize the "SRAM" FSMC interface
 	MBED_ASSERT(HAL_SRAM_Init(&obj->sram_handle, &Timing, NULL) == HAL_OK);
 
-	//i8080_init_pins();
+	/*
+	 * The HAL drivers will call HAL_SRAM_MspInit to finish configuring
+	 * the SRAM pins for the specific target.
+	 *
+	 * See the target's i8080_8bit_hal.c file for details
+	 */
 }
 
 void i8080_8bit_free(i8080_8bit_t *obj)
 {
-	//TODO - deinit pins
+	/*
+	 * The HAL drivers will call HAL_SRAM_MspDeInit to finish configuring
+	 * the SRAM pins for the specific target.
+	 *
+	 * See the target's i8080_8bit_hal.c file for details
+	 */
+	MBED_ASSERT(HAL_SRAM_DeInit(&obj->sram_handle) == HAL_OK);
 }
 
 void i8080_8bit_write(i8080_8bit_t* obj, uint8_t value)
 {
-	SRAM_BANK_ADDR_8BIT(CMD) = value;
+	HAL_SRAM_Write_8b(&obj->sram_handle,
+			(uint32_t*) SRAM_START_ADDRESS,
+			&value, 1);
 }
 
-void i8080_8bit_write_bytes(i8080_8bit_t *obj,
-		uint8_t* value, uint32_t len)
+void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len)
 {
-	SRAM_BANK_ADDR_8BIT(CMD) = *value;
-	for(int i = 1; i < len; i++)
-	{
-		SRAM_BANK_ADDR_8BIT(DATA) = value[i];
-	}
+	// TODO Look into using the Write_DMA function instead?
+	HAL_SRAM_Write_8b(&obj->sram_handle,
+			(uint32_t*) SRAM_START_ADDRESS,
+			value, len);
 
 }
 
-uint8_t i8080_8bit_read(i8080_8bit_t *obj)
+void i8080_8bit_read(i8080_8bit_t *obj, uint8_t* buf, uint32_t len)
 {
-	return (uint8_t) SRAM_BANK_ADDR_8BIT(CMD);
+	HAL_SRAM_Read_8b(&obj->sram_handle,
+			(uint32_t*) SRAM_START_ADDRESS,
+			buf, len);
 }
 
 

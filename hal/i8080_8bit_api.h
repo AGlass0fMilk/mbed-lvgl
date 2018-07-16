@@ -56,28 +56,25 @@ void i8080_8bit_free(i8080_8bit_t *obj);
 
 /** Write a single byte to the i8080_8bit bus
  * @param obj The i8080_8bit object
- * @param address Address to write to
  * @param value Byte to write to bus
  */
-void i8080_8bit_write(i8080_8bit_t* obj, uint32_t address, uint8_t value);
+void i8080_8bit_write(i8080_8bit_t* obj, uint8_t value);
 
 /** Write bytes to the i8080_8bit bus
  *
  * @param obj The i8080_8bit object
- * @param address Starting address to write to
  * @param value Pointer to array of values to write out
  * @param len Number of bytes to write
- * @param increment_addr increment address after each byte?
  */
-void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint32_t address,
-		uint8_t* value, uint32_t len, uint8_t increment_addr);
+void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len);
 
 /** Read the i8080_8bit bus
  *
  * @param obj The i8080_8bit object
- * @return the 8-bit value on the bus
+ * @param buf Buffer to receive data read from bus
+ * @param len Number of bytes to receive
  */
-uint8_t i8080_8bit_read(i8080_8bit_t *obj);
+void i8080_8bit_read(i8080_8bit_t *obj, uint8_t* buf, uint32_t len);
 
 /**@}*/
 
