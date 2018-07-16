@@ -12,6 +12,6 @@
 
 
 
-#endif /* DEVICE_PARALLEL_8BIT
+#endif /* DEVICE_PARALLEL_8BIT */
 
 
