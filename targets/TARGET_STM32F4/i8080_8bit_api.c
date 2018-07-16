@@ -22,63 +22,15 @@
  */
 
 #include "i8080_8bit_api.h"
-#include "lvgl_objects.h"
 #include "stdint.h"
-#include "stm32f4xx_hal_gpio.h"
+#include "lvgl_objects.h"
+#include "stm32f4xx_hal_sram.h"
 
 #include "platform/mbed_assert.h"
 
 #define CMD 0
 #define DATA (1 << 16)
 #define SRAM_BANK_ADDR_8BIT(d) *((__IO uint8_t*)(0x60000000 + d))
-
-#if DEVICE_I8080_8BIT
-
-//void HAL_SRAM_MspInit(SRAM_HandleTypeDef* hsram)
-//{
-//	GPIO_InitTypeDef GPIO_InitStructure;
-//
-//	/* Enable FSMC clock */
-//  __HAL_RCC_FSMC_CLK_ENABLE();
-//
-//  /* Enable GPIOs clock */
-//  __HAL_RCC_GPIOD_CLK_ENABLE();
-//  __HAL_RCC_GPIOE_CLK_ENABLE();
-//
-//	/*-- GPIO Configuration ------------------------------------------------------*/
-//	/* SRAM Data lines,  NOE (/RD) and NWE (/WR) configuration */
-//
-//	// 8-bit interface (PORT D)
-//	GPIO_InitStructure.Pin = GPIO_PIN_14 // D0
-//								  | GPIO_PIN_15 // D1
-//								  | GPIO_PIN_0	 // D2
-//								  | GPIO_PIN_1	 // D3
-//								  | GPIO_PIN_7  // ~CS
-//								  | GPIO_PIN_11 // ~RS
-//								  | GPIO_PIN_4	 // ~RD
-//								  | GPIO_PIN_5; // ~WR
-//	GPIO_InitStructure.Mode = GPIO_MODE_AF_PP;
-//	GPIO_InitStructure.Pull = GPIO_NOPULL;
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
-//	GPIO_InitStructure.Alternate = GPIO_AF12_FSMC;
-//
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//
-//	// 8-bit interface (PORT E)
-//	GPIO_InitStructure.Pin = GPIO_PIN_7   // D4
-//								  | GPIO_PIN_8   // D5
-//								  | GPIO_PIN_9   // D6
-//								  | GPIO_PIN_10; // D7
-//	HAL_GPIO_Init(GPIOE, &GPIO_InitStructure);
-//
-//	/* RESET */
-//	GPIO_InitStructure.Pin = GPIO_PIN_12;
-//	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-//	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
-//	GPIO_InitStructure.Pull  = GPIO_PULLUP;
-//	HAL_GPIO_Init(GPIOD, &GPIO_InitStructure);
-//	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-//}
 
 void i8080_8bit_init(i8080_8bit_t *obj)
 {
@@ -140,7 +92,5 @@ uint8_t i8080_8bit_read(i8080_8bit_t *obj)
 {
 	return (uint8_t) SRAM_BANK_ADDR_8BIT(CMD);
 }
-
-#endif
 
 

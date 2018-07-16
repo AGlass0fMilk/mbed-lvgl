@@ -27,8 +27,6 @@
 #include "stdint.h"
 #include "lvgl_objects.h"
 
-#if DEVICE_I8080_8BIT
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -86,7 +84,5 @@ uint8_t i8080_8bit_read(i8080_8bit_t *obj);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* DEVICE_I8080_8BIT */
 
 #endif /* LVGL_HAL_I8080_8BIT_API_H_ */
