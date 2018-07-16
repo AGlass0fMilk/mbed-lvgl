@@ -115,10 +115,120 @@
 	    "macro_name": "LV_COMPILER_VLA_SUPPORTED",
 	    "value": 1
 	},
-	"theme": {
-	    "help": "Set the theme used. Values can be: 1 (default), 2 (alien), 3 (night), 4 (mono), 5 (material), 6 (zen)",
-	    "macro_name": "LV_THEME",
+	"use_theme_templ": {
+	    "help": "Template theme enabled"
+	    "macro_name": "USE_LV_THEME_TEMPL",
+	    "value": 0
+	},
+	"use_theme_default": {
+	    "help": "Default theme enabled"
+	    "macro_name": "USE_LV_THEME_DEFAULT",
 	    "value": 1
+	},
+	"use_theme_alien": {
+	    "help": "Alien theme enabled"
+	    "macro_name": "USE_LV_THEME_ALIEN",
+	    "value": 1
+	},
+	"use_theme_night": {
+	    "help": "Night theme enabled"
+	    "macro_name": "USE_LV_THEME_NIGHT",
+	    "value": 1
+	},
+	"use_theme_mono": {
+	    "help": "Mono theme enabled"
+	    "macro_name": "USE_LV_THEME_MONO",
+	    "value": 1
+	},
+	"use_theme_material": {
+	    "help": "Material theme enabled"
+	    "macro_name": "USE_LV_THEME_MATERIAL",
+	    "value": 1
+	},
+	"use_theme_zen": {
+	    "help": "Zen theme enabled"
+	    "macro_name": "USE_LV_THEME_ZEN",
+	    "value": 1
+	},
+	"use_lv_font_dejavu_10": {
+	    "help": "Enable dejavu 10 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_10",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_10_latin_sup": {
+	    "help": "Enable dejavu 10 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_10_LATIN_SUP",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_10_cyrillic": {
+	    "help": "Enable dejavu 10 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_10_CYRILLIC",
+	    "value": 0
+	},
+	"use_lv_font_symbol_10": {
+	    "help": "Enable symbol 10 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_SYMBOL_10",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_20": {
+	    "help": "Enable dejavu 20 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_20",
+	    "value": 4
+	},
+	"use_lv_font_dejavu_20_latin_sup": {
+	    "help": "Enable dejavu 20 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_20_LATIN_SUP",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_20_cyrillic": {
+	    "help": "Enable dejavu 20 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_20_CYRILLIC",
+	    "value": 0
+	},
+	"use_lv_font_symbol_20": {
+	    "help": "Enable symbol 20 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_SYMBOL_20",
+	    "value": 4
+	},
+	"use_lv_font_dejavu_30": {
+	    "help": "Enable dejavu 30 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_30",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_30_latin_sup": {
+	    "help": "Enable dejavu 30 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_30_LATIN_SUP",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_30_cyrillic": {
+	    "help": "Enable dejavu 30 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_30_CYRILLIC",
+	    "value": 0
+	},
+	"use_lv_font_symbol_30": {
+	    "help": "Enable symbol 30 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_SYMBOL_30",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_40": {
+	    "help": "Enable dejavu 40 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_40",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_40_latin_sup": {
+	    "help": "Enable dejavu 40 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_40_LATIN_SUP",
+	    "value": 0
+	},
+	"use_lv_font_dejavu_40_cyrillic": {
+	    "help": "Enable dejavu 40 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_DEJAVU_40_CYRILLIC",
+	    "value": 0
+	},
+	"use_lv_font_symbol_40": {
+	    "help": "Enable symbol 40 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
+	    "macro_name": "USE_LV_FONT_SYMBOL_40",
+	    "value": 0
 	},
 	"enable_labels": {
 	    "help": "Enable label objects",

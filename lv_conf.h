@@ -167,25 +167,33 @@
  *  THEME USAGE
  *================*/
 
-#define LV_THEME_TEMPL		0
-#define LV_THEME_DEFAULT 	1
-#define LV_THEME_ALIEN		2
-#define LV_THEME_NIGHT		3
-#define LV_THEME_MONO		4
-#define LV_THEME_MATERIAL	5
-#define LV_THEME_ZEN			6
-
-#ifndef LV_THEME
-#define LV_THEME LV_THEME_DEFAULT
+#ifndef USE_LV_THEME_TEMPL
+#define USE_LV_THEME_TEMPL		0	/*Just for test*/
 #endif
 
-#define USE_LV_THEME_TEMPL      (LV_THEME == LV_THEME_TEMPL)		/*Just for test*/
-#define USE_LV_THEME_DEFAULT    (LV_THEME == LV_THEME_DEFAULT)		/*Built mainly from the built-in styles. Consumes very few RAM*/
-#define USE_LV_THEME_ALIEN      (LV_THEME == LV_THEME_ALIEN)		/*Dark futuristic theme*/
-#define USE_LV_THEME_NIGHT      (LV_THEME == LV_THEME_NIGHT)		/*Dark elegant theme*/
-#define USE_LV_THEME_MONO       (LV_THEME == LV_THEME_MONO)			/*Mono color theme for monochrome displays*/
-#define USE_LV_THEME_MATERIAL   (LV_THEME == LV_THEME_MATERIAL)	/*Flat theme with bold colors and light shadows*/
-#define USE_LV_THEME_ZEN        (LV_THEME == LV_THEME_ZEN)			/*Peaceful, mainly light theme */
+#ifndef USE_LV_THEME_DEFAULT
+#define USE_LV_THEME_DEFAULT	1	/*Built mainly from the built-in styles. Consumes very few RAM*/
+#endif
+
+#ifndef USE_LV_THEME_ALIEN
+#define USE_LV_THEME_ALIEN		1	/*Dark futuristic theme*/
+#endif
+
+#ifndef USE_LV_THEME_NIGHT
+#define USE_LV_THEME_NIGHT		1	/*Dark elegant theme*/
+#endif
+
+#ifndef USE_LV_THEME_MONO
+#define USE_LV_THEME_MONO		1	/*Mono color theme for monochrome displays*/
+#endif
+
+#ifndef USE_LV_THEME_MATERIAL
+#define USE_LV_THEME_MATERIAL	1	/*Flat theme with bold colors and light shadows*/
+#endif
+
+#ifndef USE_LV_THEME_ZEN
+#define USE_LV_THEME_ZEN		1	/*Peaceful, mainly light theme */
+#endif
 
 /*==================
  *    FONT USAGE
@@ -196,25 +204,69 @@
  * which will determine the bit-per-pixel */
 #define LV_FONT_DEFAULT        &lv_font_dejavu_20     /*Always set a default font from the built-in fonts*/
 
+#ifndef USE_LV_FONT_DEJAVU_10
 #define USE_LV_FONT_DEJAVU_10              0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_10_LATIN_SUP
 #define USE_LV_FONT_DEJAVU_10_LATIN_SUP    0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_10_CYRILLIC
 #define USE_LV_FONT_DEJAVU_10_CYRILLIC     0
+#endif
+
+#ifndef USE_LV_FONT_SYMBOL_10
 #define USE_LV_FONT_SYMBOL_10              0
+#endif
 
+#ifndef USE_LV_FONT_DEJAVU_20
 #define USE_LV_FONT_DEJAVU_20              4
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_20_LATIN_SUP
 #define USE_LV_FONT_DEJAVU_20_LATIN_SUP    0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_20_CYRILLIC
 #define USE_LV_FONT_DEJAVU_20_CYRILLIC     0
+#endif
+
+#ifndef USE_LV_FONT_SYMBOL_20
 #define USE_LV_FONT_SYMBOL_20              4
+#endif
 
+#ifndef USE_LV_FONT_DEJAVU_30
 #define USE_LV_FONT_DEJAVU_30              0
-#define USE_LV_FONT_DEJAVU_30_LATIN_SUP    0
-#define USE_LV_FONT_DEJAVU_30_CYRILLIC     0
-#define USE_LV_FONT_SYMBOL_30              0
+#endif
 
+#ifndef USE_LV_FONT_DEJAVU_30_LATIN_SUP
+#define USE_LV_FONT_DEJAVU_30_LATIN_SUP    0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_30_CYRILLIC
+#define USE_LV_FONT_DEJAVU_30_CYRILLIC     0
+#endif
+
+#ifndef USE_LV_FONT_SYMBOL_30
+#define USE_LV_FONT_SYMBOL_30              0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_40
 #define USE_LV_FONT_DEJAVU_40              0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_40_LATIN_SUP
 #define USE_LV_FONT_DEJAVU_40_LATIN_SUP    0
+#endif
+
+#ifndef USE_LV_FONT_DEJAVU_40_CYRILLIC
 #define USE_LV_FONT_DEJAVU_40_CYRILLIC     0
+#endif
+
+#ifndef USE_LV_FONT_SYMBOL_40
 #define USE_LV_FONT_SYMBOL_40              0
+#endif
 
 /*===================
  *  LV_OBJ SETTINGS
