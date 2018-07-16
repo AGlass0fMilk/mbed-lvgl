@@ -3,3 +3,4 @@
 .project
 .settings/
 mbed_settings.py
+mbed-os.lib
