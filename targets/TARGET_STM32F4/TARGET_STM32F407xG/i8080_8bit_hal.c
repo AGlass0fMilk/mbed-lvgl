@@ -32,6 +32,9 @@ static void HAL_FSMC_MspInit(void)
   /* Peripheral clock enable */
   __HAL_RCC_FSMC_CLK_ENABLE();
 
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+
   /** FSMC GPIO Configuration
   PE7   ------> FSMC_D4
   PE8   ------> FSMC_D5

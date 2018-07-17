@@ -1,6 +1,11 @@
 {
     "name": "mbed-lvgl",
     "config": {
+	"enable_lvgl": {
+	    "help": "Enables lvgl features of the drivers (if you just want to use the drivers without lvgl, you can save build time by setting this to 0)",
+	    "macro_name": "MBED_USE_LVGL",
+	    "value": 1
+	},
 	"horizontal_res": {
 	    "help": "The horizontal resolution of your display",
 	    "macro_name": "LV_HOR_RES",

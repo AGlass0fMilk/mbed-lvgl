@@ -12,9 +12,17 @@
 #include "stdint.h"
 #include "lv_conf.h"
 
+#include "DisplayInterface.h"
+
 class DisplayDriver
 {
 	public:
+
+		/*
+		 * Instantiates a DisplayDriver with a given DisplayInterface
+		 */
+		DisplayDriver(DisplayInterface& interface) : _interface(interface)
+		{ }
 
 		virtual ~DisplayDriver() { }
 
@@ -22,6 +30,8 @@ class DisplayDriver
 		 * Initializes the display driver
 		 */
 		virtual void init(void) = 0;
+
+#if MBED_USE_LVGL
 
 		/*
 		 * @brief Flush the content of the internal buffer to the specific area on the display
@@ -59,12 +69,20 @@ class DisplayDriver
 
 #endif
 
+
 	protected:
 
 		/*
 		 * @brief This method MUST be called at the end of the subclass's flush() implementation!
 		 */
 		void flush_ready(void) { lv_flush_ready(); }
+
+#endif
+
+
+	protected:
+
+		DisplayInterface& _interface;
 
 };
 

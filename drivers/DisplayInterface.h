@@ -14,15 +14,24 @@
 #ifndef DRIVERS_DISPLAYINTERFACE_H_
 #define DRIVERS_DISPLAYINTERFACE_H_
 
+#include "stdint.h"
+
 class DisplayInterface
 {
+
+public:
+
 	virtual ~DisplayInterface(void) { }
+
+#if MBED_USE_LVGL
 
 	virtual void write_command(uint8_t command) = 0;
 
 	virtual void write_data(uint8_t* data, uint32_t length) = 0;
 
 	virtual uint8_t read(void) = 0;
+
+#endif
 
 };
 

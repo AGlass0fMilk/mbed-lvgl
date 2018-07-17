@@ -28,10 +28,10 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		 *
 		 * @retval Singleton instance reference
 		 */
-		static const LittleVGL* get_instance()
+		static LittleVGL& get_instance()
 		{
 			static LittleVGL instance;
-			return (const LittleVGL*) &instance;
+			return instance;
 		}
 
 		/**

@@ -71,7 +71,7 @@ void i8080_8bit_init(i8080_8bit_t *obj)
 	obj->timing.AccessMode = FSMC_ACCESS_MODE_B;
 
 	// Initialize the "SRAM" FSMC interface
-	MBED_ASSERT(HAL_SRAM_Init(&obj->sram_handle, &Timing, NULL) == HAL_OK);
+	MBED_ASSERT(HAL_SRAM_Init(&obj->sram_handle, &obj->timing, NULL) == HAL_OK);
 
 	/*
 	 * The HAL drivers will call HAL_SRAM_MspInit to finish configuring

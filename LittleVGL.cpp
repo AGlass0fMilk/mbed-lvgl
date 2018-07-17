@@ -76,6 +76,9 @@ void LittleVGL::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 	{
 		display_driver_instance->flush(x1, y1, x2, y2, color_p);
 	}
+
+	// Tell lvgl flush is done
+	lv_flush_ready();
 }
 
 void LittleVGL::map(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
