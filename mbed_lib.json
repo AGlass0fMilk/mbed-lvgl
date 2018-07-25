@@ -1,6 +1,11 @@
 {
     "name": "mbed-lvgl",
     "config": {
+	"enable_lvgl": {
+	    "help": "Enables lvgl features of the drivers (if you just want to use the drivers without lvgl, you can save build time by setting this to 0)",
+	    "macro_name": "MBED_USE_LVGL",
+	    "value": 1
+	},
 	"horizontal_res": {
 	    "help": "The horizontal resolution of your display",
 	    "macro_name": "LV_HOR_RES",
@@ -116,37 +121,37 @@
 	    "value": 1
 	},
 	"use_theme_templ": {
-	    "help": "Template theme enabled"
+	    "help": "Template theme enabled",
 	    "macro_name": "USE_LV_THEME_TEMPL",
 	    "value": 0
 	},
 	"use_theme_default": {
-	    "help": "Default theme enabled"
+	    "help": "Default theme enabled",
 	    "macro_name": "USE_LV_THEME_DEFAULT",
 	    "value": 1
 	},
 	"use_theme_alien": {
-	    "help": "Alien theme enabled"
+	    "help": "Alien theme enabled",
 	    "macro_name": "USE_LV_THEME_ALIEN",
 	    "value": 1
 	},
 	"use_theme_night": {
-	    "help": "Night theme enabled"
+	    "help": "Night theme enabled",
 	    "macro_name": "USE_LV_THEME_NIGHT",
 	    "value": 1
 	},
 	"use_theme_mono": {
-	    "help": "Mono theme enabled"
+	    "help": "Mono theme enabled",
 	    "macro_name": "USE_LV_THEME_MONO",
 	    "value": 1
 	},
 	"use_theme_material": {
-	    "help": "Material theme enabled"
+	    "help": "Material theme enabled",
 	    "macro_name": "USE_LV_THEME_MATERIAL",
 	    "value": 1
 	},
 	"use_theme_zen": {
-	    "help": "Zen theme enabled"
+	    "help": "Zen theme enabled",
 	    "macro_name": "USE_LV_THEME_ZEN",
 	    "value": 1
 	},
@@ -343,7 +348,7 @@
     },
     "target_overrides": {
 	"STM32F407xG": {
-	    "device_has_add": ["I8080_8BIT"]
+	    "device_has_add": ["PARALLEL_8BIT"]
 	}
     }
 }

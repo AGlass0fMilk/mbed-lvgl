@@ -14,25 +14,19 @@
 static DisplayDriver* display_driver_instance;
 
 LittleVGL::LittleVGL() :
-		_driver(NULL), _ticker(NULL)
+		_driver(NULL), _ticker()
 {
 	display_driver_instance = NULL;
 }
 
 LittleVGL::~LittleVGL()
-{
-	if(_ticker)
-		delete _ticker;
-}
+{ }
 
 void LittleVGL::init(DisplayDriver* driver)
 {
 	// Keep a reference to the driver
 	_driver = driver;
 	display_driver_instance = driver;
-
-	// Instantiate a Ticker
-	_ticker = new mbed::Ticker();
 
 	// Initialize LittlevGL
 	lv_init();
@@ -57,7 +51,12 @@ void LittleVGL::init(DisplayDriver* driver)
 
 void LittleVGL::start(void)
 {
-	_ticker->attach_us(mbed::callback(this, &LittleVGL::tick), 1000);
+	_ticker.attach_us(mbed::callback(this, &LittleVGL::tick), 1000);
+}
+
+void LittleVGL::stop(void)
+{
+	_ticker.detach();
 }
 
 void LittleVGL::update(void)
@@ -77,6 +76,9 @@ void LittleVGL::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 	{
 		display_driver_instance->flush(x1, y1, x2, y2, color_p);
 	}
+
+	// Tell lvgl flush is done
+	lv_flush_ready();
 }
 
 void LittleVGL::map(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
