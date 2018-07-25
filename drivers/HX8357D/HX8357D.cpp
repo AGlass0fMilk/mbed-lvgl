@@ -272,6 +272,8 @@ void HX8357D::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 
 	this->write_memory_start();
 
+	//_interface.write_data((uint16_t*) color_p, (x2-x1)*(y2-y1));
+
 	// TODO - Speed this up using DMA!
 	// TODO - Make sure initialization is working correctly
 	// TODO - Make sure the D/C pin is toggling fast enough (change it to high speed)
