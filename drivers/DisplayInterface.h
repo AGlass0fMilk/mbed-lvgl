@@ -29,6 +29,10 @@ public:
 
 	virtual void write_data(uint8_t* data, uint32_t length) = 0;
 
+	virtual void write_data(uint16_t* data, uint32_t length) = 0;
+
+	virtual void write_data(uint32_t* data, uint32_t length) = 0;
+
 	virtual uint8_t read(void) = 0;
 
 #endif
