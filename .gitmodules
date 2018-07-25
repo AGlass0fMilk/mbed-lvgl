@@ -1,0 +1,3 @@
+[submodule "drivers/SSD1306/ssd1306"]
+	path = drivers/SSD1306/ssd1306
+	url = https://github.com/AGlass0fMilk/ssd1306.git
