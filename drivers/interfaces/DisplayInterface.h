@@ -27,11 +27,20 @@ public:
 
 	virtual void write_command(uint8_t command) = 0;
 
-	virtual void write_data(uint8_t* data, uint32_t length) = 0;
+	/**
+	 * Writes a command with parameters
+	 * @param[in] command command byte to send
+	 * @param[in] params Pointer to parameter buffer
+	 * @param[in] num_params number of parameter bytes to send
+	 */
+	virtual void write_command_with_params(uint8_t command, const uint8_t* params,
+			uint8_t num_params) = 0;
 
-	virtual void write_data(uint16_t* data, uint32_t length) = 0;
+	virtual void write_data(const uint8_t* data, uint32_t length) = 0;
 
-	virtual void write_data(uint32_t* data, uint32_t length) = 0;
+	virtual void write_data(const uint16_t* data, uint32_t length) = 0;
+
+	virtual void write_data(const uint32_t* data, uint32_t length) = 0;
 
 	virtual uint8_t read(void) = 0;
 

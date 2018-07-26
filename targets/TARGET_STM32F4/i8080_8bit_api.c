@@ -99,7 +99,7 @@ void i8080_8bit_write(i8080_8bit_t* obj, uint8_t value)
 			&value, 1);
 }
 
-void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len)
+void i8080_8bit_write_bytes(i8080_8bit_t *obj, const uint8_t* value, uint32_t len)
 {
 	// TODO Look into using the Write_DMA function instead?
 	HAL_SRAM_Write_8b(&obj->sram_handle,
@@ -108,14 +108,14 @@ void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len)
 
 }
 
-void i8080_8bit_write_int16(i8080_8bit_t *obj, uint16_t* value, uint32_t len)
+void i8080_8bit_write_int16(i8080_8bit_t *obj, const uint16_t* value, uint32_t len)
 {
 	HAL_SRAM_Write_16b(&obj->sram_handle,
 			(uint32_t*) SRAM_START_ADDRESS,
 			value, len);
 }
 
-void i8080_8bit_write_word32(i8080_8bit_t* obj, uint32_t* value, uint32_t len)
+void i8080_8bit_write_word32(i8080_8bit_t* obj, const uint32_t* value, uint32_t len)
 {
 	HAL_SRAM_Write_32b(&obj->sram_handle,
 			(uint32_t*) SRAM_START_ADDRESS,

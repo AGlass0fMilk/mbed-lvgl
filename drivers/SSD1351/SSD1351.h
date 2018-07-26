@@ -38,14 +38,7 @@ class SSD1351Display : public DisplayDriver
 		 * Instantiate an SSD1351 display
 		 */
 		SSD1351Display(DisplayInterface& interface,
-				PinName reset, PinName shutdown = NULL) : DisplayDriver(interface),
-				_reset(reset), _shutdown(NULL)
-		{
-			if(shutdown != NULL)
-			{
-				_shutdown = new mbed::DigitalOut(shutdown);
-			}
-		}
+				PinName reset, PinName shutdown = NC);
 
 		virtual ~SSD1351Display() {}
 
@@ -60,7 +53,7 @@ class SSD1351Display : public DisplayDriver
 		 *
 		 * Power on timing:
 		 * After VDDIO (3.3V) rises:
-		 * - delay at least 1ms
+		 * - delay at least 1ms (application responsible for this)
 		 * - set reset low for at least 2us
 		 * - after reset goes low, wait at least 2us to power on VCC (ie: 13V)
 		 * - after VCC stabilizes, send 0xAF command for display ON (this will take 200ms)

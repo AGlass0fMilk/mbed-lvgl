@@ -66,7 +66,7 @@ void i8080_8bit_write(i8080_8bit_t* obj, uint8_t value);
  * @param value Pointer to array of values to write out
  * @param len Number of bytes to write
  */
-void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len);
+void i8080_8bit_write_bytes(i8080_8bit_t *obj, const uint8_t* value, uint32_t len);
 
 /**
  * Write 16-bit integers to the i8080_8bit bus
@@ -75,7 +75,7 @@ void i8080_8bit_write_bytes(i8080_8bit_t *obj, uint8_t* value, uint32_t len);
  * @param value Pointer to array of values to write out
  * @param len Number of 16-bit integers to write
  */
-void i8080_8bit_write_int16(i8080_8bit_t *obj, uint16_t* value, uint32_t len);
+void i8080_8bit_write_int16(i8080_8bit_t *obj, const uint16_t* value, uint32_t len);
 
 /**
  * Write 32-bit integers to the bus
@@ -83,7 +83,7 @@ void i8080_8bit_write_int16(i8080_8bit_t *obj, uint16_t* value, uint32_t len);
  * @param value Pointer to array of values to write out
  * @param len Number of 32-bit words to write out
  */
-void i8080_8bit_write_word32(i8080_8bit_t* obj, uint32_t* value, uint32_t len);
+void i8080_8bit_write_word32(i8080_8bit_t* obj, const uint32_t* value, uint32_t len);
 
 /** Read the i8080_8bit bus
  *

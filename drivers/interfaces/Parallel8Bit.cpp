@@ -19,17 +19,17 @@ void Parallel8Bit::write_command(uint8_t command) {
 	i8080_8bit_write(&_bus, command);
 }
 
-void Parallel8Bit::write_data(uint8_t* data, uint32_t length) {
+void Parallel8Bit::write_data(const uint8_t* data, uint32_t length) {
 	_data_cmd = 1;
 	i8080_8bit_write_bytes(&_bus, data, length);
 }
 
-void Parallel8Bit::write_data(uint16_t* data, uint32_t length) {
+void Parallel8Bit::write_data(const uint16_t* data, uint32_t length) {
 	_data_cmd = 1;
 	i8080_8bit_write_int16(&_bus, data, length);
 }
 
-void Parallel8Bit::write_data(uint32_t* data, uint32_t length) {
+void Parallel8Bit::write_data(const uint32_t* data, uint32_t length) {
 	_data_cmd = 1;
 	i8080_8bit_write_word32(&_bus, data, length);
 }
