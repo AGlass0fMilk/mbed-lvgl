@@ -50,7 +50,7 @@ void SSD1351Display::enable_power(bool enable)
 		_reset = 1;
 
 		// Power on VCC (high voltage)
-		this->shutdown(false);
+		this->shutdown(true);
 
 		// Application is responsible for waiting for VCC to stabilize
 		// before sending the display ON command
@@ -62,7 +62,7 @@ void SSD1351Display::enable_power(bool enable)
 		this->enter_sleep_mode();
 
 		// Power down VCC (high voltage)
-		this->shutdown(true);
+		this->shutdown(false);
 
 		// Application is responsible for waiting typically 100ms before
 		// powering down VDDIO (3.3V to display)

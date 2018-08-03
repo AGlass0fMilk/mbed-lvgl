@@ -235,7 +235,7 @@ class SSD1351Display : public DisplayDriver
 		/** Asserts the shutdown pin, if present */
 		void shutdown(bool enable) {
 			if(_shutdown)
-				_shutdown = enable;
+				_shutdown->write(enable);
 		}
 
 	private:

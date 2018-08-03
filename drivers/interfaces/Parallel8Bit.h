@@ -15,7 +15,7 @@
 
 #include "platform/mbed_error.h"
 
-//#if defined(DEVICE_PARALLEL_8BIT)
+#if defined(DEVICE_PARALLEL_8BIT)
 
 class Parallel8Bit : public DisplayInterface
 {
@@ -72,6 +72,6 @@ protected:
 
 };
 
-//#endif /* DEVICE_PARALLEL_8BIT */
+#endif /* DEVICE_PARALLEL_8BIT */
 
 #endif /* DRIVERS_PARALLEL8BIT_H_ */

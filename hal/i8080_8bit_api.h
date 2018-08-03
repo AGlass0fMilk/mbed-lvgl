@@ -24,6 +24,9 @@
 #define LVGL_HAL_I8080_8BIT_API_H_
 
 #include "device.h"
+
+#if defined(DEVICE_PARALLEL_8BIT)
+
 #include "stdint.h"
 #include "lvgl_objects.h"
 
@@ -98,5 +101,7 @@ void i8080_8bit_read(i8080_8bit_t *obj, uint8_t* buf, uint32_t len);
 #ifdef __cplusplus
 }
 #endif
+
+#endif /** DEVICE_PARALLEL_8BIT */
 
 #endif /* LVGL_HAL_I8080_8BIT_API_H_ */

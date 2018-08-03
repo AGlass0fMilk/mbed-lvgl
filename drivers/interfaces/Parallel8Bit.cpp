@@ -7,7 +7,7 @@
 
 #include "Parallel8Bit.h"
 
-//#if defined(DEVICE_PARALLEL_8BIT)
+#if defined(DEVICE_PARALLEL_8BIT)
 
 Parallel8Bit::Parallel8Bit(PinName data_cmd_pin) : _data_cmd(data_cmd_pin)
 {
@@ -40,4 +40,4 @@ uint8_t Parallel8Bit::read(void) {
 	return result;
 }
 
-//#endif /* DEVICE_PARALLEL_8BIT */
+#endif /* DEVICE_PARALLEL_8BIT */
