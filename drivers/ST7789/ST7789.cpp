@@ -27,7 +27,7 @@
 
 ST7789Display::ST7789Display(DisplayInterface& interface,
 		PinName reset, PinName backlight) : DisplayDriver(interface),
-		_reset(reset), _backlight(NULL), _inverted(false)
+		_reset(reset, 1), _backlight(NULL), _inverted(false)
 {
 	if(backlight != NC)
 	{
@@ -38,6 +38,12 @@ ST7789Display::ST7789Display(DisplayInterface& interface,
 
 void ST7789Display::init(void)
 {
+	// Hardware reset
+	_reset = 0;
+	wait_ms(10);
+	_reset = 1;
+	wait_ms(10);
+
 	// Software reset
 	_interface.write_command(ST77XX_SWRESET);
 	wait_ms(100);
