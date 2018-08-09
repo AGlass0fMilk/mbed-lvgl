@@ -22,6 +22,12 @@ extern "C" {
 #endif
 
 /**
+ * Sets up the default mbed fileystem wrapper structure for lvgl
+ * @param[in/out] driver driver instance to configure to defaults
+ */
+void mbed_lvgl_fs_wrapper_default(lv_fs_drv_t* fs_drv);
+
+/**
  * Open a file using mbed's retargeted filesystem
  * @param file_p pointer to a FILE* variable
  * @param fn name of the file.
