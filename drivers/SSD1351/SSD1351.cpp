@@ -183,10 +183,41 @@ void SSD1351Display::set_command_lock(uint8_t setting)
 	_interface.write_command_with_params(SSD1351_SET_CMD_LOCK, &setting, 1);
 }
 
+void SSD1351Display::set_ram_start_line(uint8_t start)
+{
+	_interface.write_command_with_params(SSD1351_SET_START_LINE_RAM, &start, 1);
+}
+
+void SSD1351Display::set_row_offset(uint8_t offset)
+{
+	_interface.write_command_with_params(SSD1351_SET_START_LINE_ROW, &offset, 1);
+}
+
 void SSD1351Display::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 		const lv_color_t* color_p)
 {
+	this->set_column_address(x1, x2);
+	this->set_row_address(y1, y2);
+	this->start_ram_write();
 
+	// TODO - Speed this up using DMA!
+	// TODO - Make sure initialization is working correctly
+	// TODO - Make sure the D/C pin is toggling fast enough (change it to high speed)
+	int32_t x, y;
+	uint16_t* ptr = (uint16_t*) color_p;
+	for(y = y1; y <= y2; y++)
+	{
+		for(x = x1; x <= x2; x++)
+		{
+			uint8_t pix_color = 0;
+			pix_color = (color_p->red << 3) | ((color_p->green & 0x38) >> 3);
+			_interface.write_data(&pix_color, 1);
+			pix_color = ((color_p->green & 0x7) << 5) | (color_p->blue);
+			_interface.write_data(&pix_color, 1);
+
+			color_p = (const lv_color_t*) ++ptr;
+		}
+	}
 }
 
 void SSD1351Display::map(int32_t x1, int32_t y1, int32_t x2, int32_t y2,

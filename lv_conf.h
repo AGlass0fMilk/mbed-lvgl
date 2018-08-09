@@ -143,7 +143,7 @@
 #endif
 
 #ifndef USE_LV_REAL_DRAW
-#define USE_LV_REAL_DRAW        1               /*1: Enable function which draw directly to the frame buffer instead of VDB (required if LV_VDB_SIZE = 0)*/
+#define USE_LV_REAL_DRAW        0               /*1: Enable function which draw directly to the frame buffer instead of VDB (required if LV_VDB_SIZE = 0)*/
 #endif
 
 #ifndef USE_LV_FILESYSTEM

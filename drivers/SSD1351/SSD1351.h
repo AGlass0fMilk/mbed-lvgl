@@ -184,6 +184,12 @@ class SSD1351Display : public DisplayDriver
 		/** Sets the command lock settings */
 		void set_command_lock(uint8_t setting);
 
+		/** Sets the start line for drawing from VRAM */
+		void set_ram_start_line(uint8_t start);
+
+		/** Sets the display row offset */
+		void set_row_offset(uint8_t offset);
+
 		// horizontal scroll
 		// stop scrolling
 		// start scrolling
