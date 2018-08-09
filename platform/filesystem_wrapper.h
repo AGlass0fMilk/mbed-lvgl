@@ -1,27 +1,19 @@
 /**
  * @file filesystem_wrapper.h
- * @brief Brief Description
- * 
- * Detailed Description
+ * @brief Filesystem wrapper commands for lvgl API
  *
- * Link to [markdown like this](@ref PageTag)
- * Make sure you tag the markdown page like this:
- * # Page title {#PageTag}
- * 
- * <a href='MyPDF.pdf'> Link to PDF documents like this</a>
- * If you add document files, make sure to add them into a directory inside a "docs" folder
- * And then run hud-devices/tools/copy-dox-files.py 
- *
- * To use images, make sure they're in an "images" folder and follow the doxygen user manual to add images.
- * You must run copy-dox-files.py after adding images as well.
- *
- * @copyright Copyright &copy; 2018 Quic
+ * This header provides wrapper functions that translate
+ * mbed's retargeted filesystem/stdio to the API used by
+ * lvgl. This allows you to load images from external
+ * external non-volatile storage, among other things
  *
  *  Created on: Aug 1, 2018
  *      Author: gdbeckstein
  */
-#ifndef QUIC_FILESYSTEM_WRAPPER_H_
-#define QUIC_FILESYSTEM_WRAPPER_H_
+#ifndef MBED_LVGL_FILESYSTEM_WRAPPER_H_
+#define MBED_LVGL_FILESYSTEM_WRAPPER_H_
+
+#if MBED_CONF_FILESYSTEM_PRESENT
 
 #include "lv_fs.h"
 
@@ -80,4 +72,6 @@ lv_fs_res_t lv_fs_wrapper_tell(void* file_p, uint32_t* pos_p);
 }
 #endif
 
-#endif /* QUIC_FILESYSTEM_WRAPPER_H_ */
+#endif /* MBED_CONF_FILESYSTEM_PRESENT */
+
+#endif /* MBED_LVGL_FILESYSTEM_WRAPPER_H_ */

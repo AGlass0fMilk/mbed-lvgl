@@ -2,11 +2,15 @@
  * @file filesystem_wrapper.c
  * @brief Filesystem wrapper functions for littlevgl on MBed-OS
  *
- * @copyright Copyright &copy; 2018 Quic
- *
+ * This provides wrapper functions that translate
+ * mbed's retargeted filesystem/stdio to the API used by
+ * lvgl. This allows you to load images from external
+ * external non-volatile storage, among other things
  *  Created on: Aug 1, 2018
  *      Author: gdbeckstein
  */
+
+#if MBED_CONF_FILESYSTEM_PRESENT
 
 #include "filesystem_wrapper.h"
 #include "platform/mbed_retarget.h"
@@ -63,4 +67,6 @@ lv_fs_res_t lv_fs_wrapper_tell(void* file_p, uint32_t* pos_p)
 	*pos_p = ftell(*fp);
 	return LV_FS_RES_OK;
 }
+
+#endif
 
