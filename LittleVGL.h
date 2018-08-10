@@ -111,6 +111,9 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 
 	protected:
 
+		/** Initialized flag */
+		bool _inited;
+
 		/** Underlying display driver instance */
 		DisplayDriver* _driver;
 

@@ -8,13 +8,14 @@
 
 #include "LittleVGL.h"
 
+#include "platform/mbed_assert.h"
 #include "platform/Callback.h"
 
 /** Singleton display driver instance */
 static DisplayDriver* display_driver_instance;
 
 LittleVGL::LittleVGL() :
-		_driver(NULL), _ticker()
+		_inited(false), _driver(NULL), _ticker()
 {
 	display_driver_instance = NULL;
 }
@@ -47,6 +48,8 @@ void LittleVGL::init(DisplayDriver* driver)
 
 	lv_disp_drv_register(&_disp_drv_instance);
 
+	_inited = true;
+
 }
 
 void LittleVGL::start(void)
@@ -67,11 +70,19 @@ void LittleVGL::update(void)
 #if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
 void LittleVGL::filesystem_ready(void)
 {
-	// Initialize and register the filesystem driver
-	memset(&_fs_drv, 0, sizeof(lv_fs_drv_t));
-	mbed_lvgl_fs_wrapper_default(&_fs_drv);
-	_fs_drv.letter = 'M';
-	lv_fs_add_drv(&_fs_drv);
+	if(_inited)
+	{
+		// Initialize and register the filesystem driver
+		memset(&_fs_drv, 0, sizeof(lv_fs_drv_t));
+		mbed_lvgl_fs_wrapper_default(&_fs_drv);
+		_fs_drv.letter = 'M';
+		lv_fs_add_drv(&_fs_drv);
+	}
+	else
+	{
+		debug("littlevgl: filesystem cannot be initialized before LittleVGL\n");
+	}
+
 }
 #endif
 
