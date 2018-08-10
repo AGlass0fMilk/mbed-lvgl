@@ -13,6 +13,10 @@
 #include "platform/NonCopyable.h"
 #include "drivers/Ticker.h"
 
+#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+#include "platform/filesystem_wrapper.h"
+#endif
+
 class LittleVGL : private mbed::NonCopyable<LittleVGL>
 {
 	public:
@@ -55,6 +59,14 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		 * @note This should be called by the application every 1 to 10ms
 		 */
 		void update(void);
+
+#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+		/**
+		 * Tells littlevgl that a filesystem is ready to use
+		 * @note this MUST be called AFTER LittleVGL::init() or your program will halt!
+		 */
+		void filesystem_ready(void);
+#endif
 
 	protected:
 
@@ -107,6 +119,11 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 
 		/** Display driver C structure */
 		lv_disp_drv_t _disp_drv_instance;
+
+#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+		/** Filesystem driver */
+		lv_fs_drv_t _fs_drv;
+#endif
 
 };
 

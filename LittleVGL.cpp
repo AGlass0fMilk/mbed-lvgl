@@ -64,6 +64,17 @@ void LittleVGL::update(void)
 	lv_task_handler();
 }
 
+#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+void LittleVGL::filesystem_ready(void)
+{
+	// Initialize and register the filesystem driver
+	memset(&_fs_drv, 0, sizeof(lv_fs_drv_t));
+	mbed_lvgl_fs_wrapper_default(&_fs_drv);
+	_fs_drv.letter = 'M';
+	lv_fs_add_drv(&_fs_drv);
+}
+#endif
+
 void LittleVGL::tick(void)
 {
 	lv_tick_inc(1);
