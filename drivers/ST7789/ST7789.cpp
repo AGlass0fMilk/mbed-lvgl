@@ -59,7 +59,7 @@ void ST7789Display::init(void)
 	wait_ms(10);
 
 	// Set memory access control
-	buf[0] = 0x08;
+	buf[0] = 0x60;
 	_interface.write_command_with_params(ST77XX_MADCTL, buf, 1);
 
 	// Set column address
