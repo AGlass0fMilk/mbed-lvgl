@@ -59,18 +59,18 @@ void ST7789Display::init(void)
 	wait_ms(10);
 
 	// Set memory access control
-	buf[0] = 0x60;
+	buf[0] = 0xC0;
 	_interface.write_command_with_params(ST77XX_MADCTL, buf, 1);
 
 	// Set column address
-	buf[0] = 0x00; // Start address high byte
+/*	buf[0] = 0x00; // Start address high byte
 	buf[1] = 0x00; // Start address low byte
 	buf[2] = 0x00; // End address high byte
 	buf[3] = 0xF0; // End address low byte
 	_interface.write_command_with_params(ST77XX_CASET, buf, 4);
 
 	// Set row address
-	_interface.write_command_with_params(ST77XX_RASET, buf, 4);
+	_interface.write_command_with_params(ST77XX_RASET, buf, 4);*/
 
 	// Normal display on
 	_interface.write_command(ST77XX_NORON);
@@ -168,8 +168,13 @@ void ST7789Display::fill(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 void ST7789Display::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 		const lv_color_t* color_p)
 {
+	// This offset is needed in the current rotation
+	// Of the display because the ST7789 actually supports
+	// Displays up to 240X320. So we need to add 80 to get into
+	// The appropriate address space for the display in this rotation
+	static int32_t y_offset = 80;
 	this->set_column_address(x1, x2);
-	this->set_row_address(y1, y2);
+	this->set_row_address(y1 + y_offset, y2 + y_offset);
 	this->start_ram_write();
 
 	// TODO - Speed this up using DMA!
