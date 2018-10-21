@@ -8,8 +8,6 @@
 #ifndef LVGL_LITTLEVGL_H_
 #define LVGL_LITTLEVGL_H_
 
-#include "built_in.h"
-
 #include "DisplayDriver.h"
 
 #include "platform/NonCopyable.h"

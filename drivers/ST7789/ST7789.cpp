@@ -59,7 +59,7 @@ void ST7789Display::init(void)
 	wait_ms(10);
 
 	// Set memory access control
-	buf[0] = 0xC0;
+	buf[0] = 0x00;
 	_interface.write_command_with_params(ST77XX_MADCTL, buf, 1);
 
 	// Set column address
@@ -172,7 +172,8 @@ void ST7789Display::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 	// Of the display because the ST7789 actually supports
 	// Displays up to 240X320. So we need to add 80 to get into
 	// The appropriate address space for the display in this rotation
-	static int32_t y_offset = 80;
+	//static int32_t y_offset = 80;
+	static int32_t y_offset = 0;
 	this->set_column_address(x1, x2);
 	this->set_row_address(y1 + y_offset, y2 + y_offset);
 	this->start_ram_write();
