@@ -100,10 +100,12 @@ class SPI4Wire : public DisplayInterface
 		 */
 		virtual void write_command(uint8_t command)
 		{
+			_spi->lock();
 			_chip_select = 0;
 			_data_command = SPI4WIRE_COMMAND_LOGIC_LEVEL;
 			_spi->write(command);
 			_chip_select = 1;
+			_spi->unlock();
 		}
 
 		/**
@@ -115,12 +117,14 @@ class SPI4Wire : public DisplayInterface
 		virtual void write_command_with_params(uint8_t command, const uint8_t* params,
 				uint8_t num_params)
 		{
+			_spi->lock();
 			_chip_select = 0;
 			_data_command = SPI4WIRE_COMMAND_LOGIC_LEVEL;
 			_spi->write(command);
 			_data_command = SPI4WIRE_DATA_LOGIC_LEVEL;
 			_spi->write((const char*) params, num_params, NULL, 0);
 			_chip_select = 1;
+			_spi->unlock();
 		}
 
 		/**
@@ -131,10 +135,12 @@ class SPI4Wire : public DisplayInterface
 		 */
 		virtual void write_data(const uint8_t* data, uint32_t length)
 		{
+			_spi->lock();
 			_chip_select = 0;
 			_data_command = SPI4WIRE_DATA_LOGIC_LEVEL;
 			_spi->write((const char*) data, length, NULL, 0);
 			_chip_select = 1;
+			_spi->unlock();
 		}
 
 		/**

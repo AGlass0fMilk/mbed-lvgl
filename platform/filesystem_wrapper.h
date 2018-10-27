@@ -13,13 +13,13 @@
 #ifndef MBED_LVGL_FILESYSTEM_WRAPPER_H_
 #define MBED_LVGL_FILESYSTEM_WRAPPER_H_
 
-#if MBED_CONF_FILESYSTEM_PRESENT
+#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
 
-#include "lv_fs.h"
-
-#ifdef _cplusplus
+#ifdef __cplusplus
 extern "C" {
 #endif
+
+#include "lv_fs.h"
 
 /**
  * Sets up the default mbed fileystem wrapper structure for lvgl
@@ -74,7 +74,7 @@ lv_fs_res_t lv_fs_wrapper_seek(void* file_p, uint32_t pos);
  */
 lv_fs_res_t lv_fs_wrapper_tell(void* file_p, uint32_t* pos_p);
 
-#ifdef _cplusplus
+#ifdef __cplusplus
 }
 #endif
 

@@ -10,7 +10,7 @@
  *      Author: gdbeckstein
  */
 
-#if MBED_CONF_FILESYSTEM_PRESENT
+#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
 
 #include "filesystem_wrapper.h"
 #include "platform/mbed_retarget.h"
