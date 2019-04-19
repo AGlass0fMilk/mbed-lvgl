@@ -1,36 +1,22 @@
-/**
- * @file DisplayDriver.h
- * @brief Abstract base class for LittleVGL display drivers
+/*
+ * LVGLDriver.h
  *
- *  Created on: Jun 14, 2018
+ *  Created on: Apr 19, 2019
  *      Author: gdbeckstein
  */
-#ifndef LVGL_DRIVERS_DISPLAYDRIVER_H_
-#define LVGL_DRIVERS_DISPLAYDRIVER_H_
 
-#include "lvgl.h"
-#include "stdint.h"
-#include "lv_conf.h"
+#ifndef MBED_LVGL_DRIVERS_LVGLDRIVER_H_
+#define MBED_LVGL_DRIVERS_LVGLDRIVER_H_
 
-#include "DisplayInterface.h"
+extern "C" {
+#include "lv_vdb.h"
+}
 
-class DisplayDriver
+#include "DisplayDriver.h"
+
+class LVGLDriver
 {
-	public:
-
-		/*
-		 * Instantiates a DisplayDriver with a given DisplayInterface
-		 */
-		DisplayDriver(DisplayInterface& interface) : _interface(interface)
-		{ }
-
-		virtual ~DisplayDriver() { }
-
-		/*
-		 * Initializes the display driver
-		 */
-		virtual void init(void) = 0;
-
+public:
 #if MBED_USE_LVGL
 
 		/*
@@ -77,15 +63,6 @@ class DisplayDriver
 		 */
 		void flush_ready(void) { lv_flush_ready(); }
 
-#endif
-
-
-	protected:
-
-		DisplayInterface& _interface;
-
 };
 
-
-
-#endif /* LVGL_DRIVERS_DISPLAYDRIVER_H_ */
+#endif /* MBED_LVGL_DRIVERS_LVGLDRIVER_H_ */

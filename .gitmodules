@@ -4,3 +4,6 @@
 [submodule "lvgl"]
 	path = lvgl
 	url = https://github.com/littlevgl/lvgl.git
+[submodule "uDisplay"]
+	path = uDisplay
+	url = git@github.com:AGlass0fMilk/uDisplay.git
