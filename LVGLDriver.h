@@ -8,16 +8,16 @@
 #ifndef MBED_LVGL_DRIVERS_LVGLDRIVER_H_
 #define MBED_LVGL_DRIVERS_LVGLDRIVER_H_
 
+#include "DisplayDriver.h"
+
 extern "C" {
 #include "lv_vdb.h"
 }
 
-#include "DisplayDriver.h"
-
-class LVGLDriver
+class LVGLDriver : public DisplayDriver
 {
 public:
-#if MBED_USE_LVGL
+		virtual ~LVGLDriver() { }
 
 		/*
 		 * @brief Flush the content of the internal buffer to the specific area on the display
@@ -64,5 +64,7 @@ public:
 		void flush_ready(void) { lv_flush_ready(); }
 
 };
+
+
 
 #endif /* MBED_LVGL_DRIVERS_LVGLDRIVER_H_ */

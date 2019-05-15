@@ -9,10 +9,11 @@
 #include "LittleVGL.h"
 
 #include "platform/mbed_assert.h"
+#include "platform/mbed_debug.h"
 #include "platform/Callback.h"
 
 /** Singleton display driver instance */
-static DisplayDriver* display_driver_instance;
+static LVGLDriver* display_driver_instance;
 
 LittleVGL::LittleVGL() :
 		_inited(false), _driver(NULL), _ticker()
@@ -23,7 +24,7 @@ LittleVGL::LittleVGL() :
 LittleVGL::~LittleVGL()
 { }
 
-void LittleVGL::init(DisplayDriver* driver)
+void LittleVGL::init(LVGLDriver* driver)
 {
 	// Keep a reference to the driver
 	_driver = driver;

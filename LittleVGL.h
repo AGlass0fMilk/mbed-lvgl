@@ -8,10 +8,16 @@
 #ifndef LVGL_LITTLEVGL_H_
 #define LVGL_LITTLEVGL_H_
 
-#include "DisplayDriver.h"
+#include "LVGLDriver.h"
 
 #include "platform/NonCopyable.h"
 #include "drivers/Ticker.h"
+
+extern "C" {
+#include "lv_hal_disp.h"
+#include "lv_task.h"
+#include "lv_obj.h"
+}
 
 #if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
 #include "platform/filesystem_wrapper.h"
@@ -42,7 +48,7 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		 * Initializes LittleVGL
 		 * @param[in] driver Display driver instance to use
 		 */
-		void init(DisplayDriver* driver);
+		void init(LVGLDriver* driver);
 
 		/**
 		 * Start the LittleVGL ticker
@@ -115,7 +121,7 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		bool _inited;
 
 		/** Underlying display driver instance */
-		DisplayDriver* _driver;
+		LVGLDriver* _driver;
 
 		/** Ticker for updating LittleVGL ticker */
 		mbed::Ticker _ticker;
