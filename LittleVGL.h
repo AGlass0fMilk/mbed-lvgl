@@ -38,11 +38,7 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		 *
 		 * @retval Singleton instance reference
 		 */
-		static LittleVGL& get_instance()
-		{
-			static LittleVGL instance;
-			return instance;
-		}
+		static LittleVGL& get_instance();
 
 		/**
 		 * Initializes LittleVGL
@@ -112,6 +108,13 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		 * @brief Internal function for bridging C/C++ to DisplayDriver instance
 		 */
 		static void gpu_fill(lv_color_t* dest, uint32_t length, lv_color_t color) = 0;
+
+#endif
+
+#if LV_VDB_SIZE
+
+		static void vdb_write(uint8_t * buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
+						lv_color_t color, lv_opa_t opa);
 
 #endif
 
