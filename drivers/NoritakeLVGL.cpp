@@ -13,7 +13,7 @@ NoritakeLVGL::NoritakeLVGL(DisplayInterface& interface, PinName reset,
 void NoritakeLVGL::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 		const lv_color_t* color_p) {
 
-	draw_dot_unit_image(0, 0, 128, 32, _buf);
+	draw_dot_unit_image(0, 0, 128, 32, (unsigned char*) color_p);
 
 }
 
@@ -31,13 +31,13 @@ void NoritakeLVGL::vdb_write(uint8_t * buf, lv_coord_t buf_w, lv_coord_t x, lv_c
 									 lv_color_t color, lv_opa_t opa) {
 	/*Black/White. Store 8 pixel in one byte. Bytes are mapped vertically.  (Set LV_VDB_PX_BPP to 1)*/
 
-	// Start of VDB + (row_width * (y/8)) + x  (selecting row and column in memory)
-	buf += buf_w * (y >> 3) + x;
+	// Start of VDB + (x *4 + (y/8)) (selecting row and column in memory)
+	buf += ((x << 2) + (y >> 3));
 	if(lv_color_brightness(color) > 10) {
-		(*buf) |= (1 << (y % 8));	// Set the corresponding bit in the byte buffer
+		(*buf) |= (0x80 >> (y % 8));	// Set the corresponding bit in the byte buffer
 	}
 	else {
-		(*buf) &= ~(1 << (y % 8)); // Clear the corresponding bit in the byte buffer
+		(*buf) &= ~(0x80 >> (y % 8)); // Clear the corresponding bit in the byte buffer
 	}
 }
 

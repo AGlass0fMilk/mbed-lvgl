@@ -9,7 +9,8 @@
 #define MBED_LVGL_DRIVERS_LVGLDRIVER_H_
 
 extern "C" {
-#include "lv_vdb.h"
+#include "lv_color.h"
+#include "lv_area.h"
 }
 
 class LVGLDriver

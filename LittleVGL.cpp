@@ -12,6 +12,10 @@
 #include "platform/mbed_debug.h"
 #include "platform/Callback.h"
 
+extern "C" {
+#include "lv_vdb.h"
+}
+
 LittleVGL::LittleVGL() :
 		_inited(false), _driver(NULL), _ticker()
 { }
