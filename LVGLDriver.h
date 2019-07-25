@@ -8,15 +8,15 @@
 #ifndef MBED_LVGL_DRIVERS_LVGLDRIVER_H_
 #define MBED_LVGL_DRIVERS_LVGLDRIVER_H_
 
-#include "DisplayDriver.h"
-
 extern "C" {
-#include "lv_vdb.h"
+#include "lv_color.h"
+#include "lv_area.h"
 }
 
-class LVGLDriver : public DisplayDriver
+class LVGLDriver
 {
 public:
+
 		virtual ~LVGLDriver() { }
 
 		/*
@@ -55,13 +55,18 @@ public:
 
 #endif
 
+#if LV_VDB_SIZE
 
-	protected:
-
-		/*
-		 * @brief This method MUST be called at the end of the subclass's flush() implementation!
+		/**
+		 * Subclass returns true if it has a custom VDB write function
 		 */
-		void flush_ready(void) { lv_flush_ready(); }
+		virtual bool has_vdb_func(void) = 0;
+
+	    /*Optional: Set a pixel in a buffer according to the requirements of the display*/
+		virtual void vdb_write(uint8_t * buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
+				lv_color_t color, lv_opa_t opa) = 0;
+
+#endif
 
 };
 
