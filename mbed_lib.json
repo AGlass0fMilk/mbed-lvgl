@@ -1,350 +1,367 @@
 {
     "name": "mbed-lvgl",
     "config": {
-	"enable_lvgl": {
-	    "help": "Enables lvgl features of the drivers (if you just want to use the drivers without lvgl, you can save build time by setting this to 0)",
-	    "macro_name": "MBED_USE_LVGL",
-	    "value": 1
-	},
 	"horizontal_res": {
-	    "help": "The horizontal resolution of your display",
-	    "macro_name": "LV_HOR_RES",
-	    "value": 128
+	    "help": "Maximal horizontal resolution to support by the library.",
+	    "macro_name": "LV_HOR_RES_MAX",
+	    "value": 480
 	},
 	"vertical_res": {
-	    "help": "The vertical resolution of your display",
-	    "macro_name": "LV_VER_RES",
-	    "value": 128
-	},
-	"display_dpi": {
-	    "help": "The DPI of your display",
-	    "macro_name": "LV_DPI",
-	    "value": 50
-	},
-	"vdb_size": {
-	    "help": "Configure the size of the virtual display buffer, typical is ~1/10 of screen",
-	    "macro_name": "LV_VDB_SIZE"
-	},
-	"antialias": {
-	    "help": "Enable/disable antialiasing",
-	    "macro_name": "LV_ANTIALIAS",
-	    "value": 1
-	},
-	"refresh_period": {
-	    "help": "Screen refresh period in milliseconds",
-	    "macro_name": "LV_REF_PERIOD",
-	    "value": 50
-	},
-	"inv_fifo_size": {
-	    "help": "The average count of objects on the screen",
-	    "macro_name": "LV_INV_FIFO_SIZE",
-	    "value": 32
-	},
-	"input_device_read_period": {
-	    "help": "Input device read period in milliseconds",
-	    "macro_name": "LV_INDEV_READ_PERIOD",
-	    "value": 50
-	},
-	"input_device_point_marker": {
-	    "help": "Enable/disable marking pressed points",
-	    "macro_name": "LV_INDEV_POINT_MARKER",
-	    "value": 0
-	},
-	"input_device_drag_limit": {
-	    "help": "Drag threshold in pixels",
-	    "macro_name": "LV_INDEV_DRAG_LIMIT",
-	    "value": 10
-	},
-	"input_device_drag_throw": {
-	    "help": "Drag throw slow-down in %. Greater value means faster slow-down",
-	    "macro_name": "LV_INDEV_DRAG_THROW",
-	    "value": 20
-	},
-	"input_device_long_press_time": {
-	    "help": "Long press time in milliseconds",
-	    "macro_name": "LV_INDEV_LONG_PRESS_TIME",
-	    "value": 400
-	},
-	"input_device_long_press_rep_time": {
-	    "help": "Repeated trigger period in long press (ms)",
-	    "macro_name": "LV_INDEV_LONG_PRESS_REP_TIME",
-	    "value": 100
+	    "help": "Maximal vertical resolution to support by the library.",
+	    "macro_name": "LV_VER_RES_MAX",
+	    "value": 320
 	},
 	"color_depth": {
-	    "help": "Color depth of display (1/8/16/24)",
+	    "help": "Color depth of display [1 /8 (RGB233) / 16 (RGB565) / 32 (ARGB8888)]",
+	    "accepted_values": [1, 8, 16, 32]
 	    "macro_name": "LV_COLOR_DEPTH",
 	    "value": 16
+	},
+	"color_16_swap": {
+	    "help": "Swap the 2 bytes of RGB565 color.",
+	    "macro_name": "LV_COLOR_16_SWAP",
+	    "value": 0
+	},
+	"screen_transparency": {
+	    "help": "Enable screen transparency. Requires LV_COLOR_DEPTH = 32",
+	    "macro_name": "LV_COLOR_SCREEN_TRANSP",
+	    "value": 0
 	},
 	"transparent_color": {
 	    "help": "Image pixels with this color will not be drawn (with chroma keying)",
 	    "macro_name": "LV_COLOR_TRANSP",
 	    "value": "LV_COLOR_LIME"
 	},
-	"utf8_enabled": {
-	    "help": "Enable UTF-8 coded Unicode character usage",
-	    "macro_name": "LV_TXT_UTF8",
+	"antialias": {
+	    "help": "Enable/disable antialiasing",
+	    "macro_name": "LV_ANTIALIAS",
 	    "value": 1
+	},
+	"display_refresh_period": {
+	    "help": "Default display refresh period (in milliseconds).",
+	    "macro_name": "LV_DISP_DEF_REFR_PERIOD",
+	    "value": 30
+	},
+	"display_dpi": {
+	    "help": "Dot Per Inch: used to initialize default sizes.",
+	    "macro_name": "LV_DPI",
+	    "value": 100
+	},
+	"input_device_read_period": {
+	    "help": "Default input device read period in milliseconds",
+	    "macro_name": "LV_INDEV_DEF_READ_PERIOD",
+	    "value": 50
+	},
+	"input_device_drag_limit": {
+	    "help": "Drag threshold in pixels",
+	    "macro_name": "LV_INDEV_DEF_DRAG_LIMIT",
+	    "value": 10
+	},
+	"input_device_drag_throw": {
+	    "help": "Drag throw slow-down in %. Greater value means faster slow-down",
+	    "macro_name": "LV_INDEV_DEF_DRAG_THROW",
+	    "value": 20
+	},
+	"input_device_long_press_time": {
+	    "help": "Long press time in milliseconds",
+	    "macro_name": "LV_INDEV_DEF_LONG_PRESS_TIME",
+	    "value": 400
+	},
+	"input_device_long_press_rep_time": {
+	    "help": "Repeated trigger period in long press (ms)",
+	    "macro_name": "LV_INDEV_DEF_LONG_PRESS_REP_TIME",
+	    "value": 100
 	},
 	"enable_animation": {
 	    "help": "Enable animations",
-	    "macro_name": "USE_LV_ANIMATION",
+	    "macro_name": "LV_USE_ANIMATION",
 	    "value": 1
 	},
 	"enable_shadows": {
 	    "help": "Enable shadows",
-	    "macro_name": "USE_LV_SHADOW",
+	    "macro_name": "LV_USE_SHADOW",
 	    "value": 1
 	},
 	"enable_groups": {
 	    "help": "Enable object groups (for keyboards)",
-	    "macro_name": "USE_LV_GROUP",
+	    "macro_name": "LV_USE_GROUP",
 	    "value": 1
 	},
 	"enable_gpu": {
 	    "help": "Enable GPU interface",
-	    "macro_name": "USE_LV_GPU",
-	    "value": 0
-	},
-	"enable_real_draw": {
-	    "help": "Enable drawing directly to the frame buffer instead of VDB (required if vdb_size = 0)",
-	    "macro_name": "USE_LV_REAL_DRAW",
+	    "macro_name": "LV_USE_GPU",
 	    "value": 0
 	},
 	"enable_filesystem": {
 	    "help": "Enable file system support (required by images)",
-	    "macro_name": "USE_LV_FILESYSTEM",
+	    "macro_name": "LV_USE_FILESYSTEM",
 	    "value": 1
 	},
-	"vla_supported": {
-	    "help": "Variable length array is supported",
-	    "macro_name": "LV_COMPILER_VLA_SUPPORTED",
+	"img_indexed": {
+	    "help": "Enable indexed (palette) images",
+	    "macro_name": "LV_IMG_CF_INDEXED",
 	    "value": 1
+	},
+	"img_cf_alpha": {
+	    "help": "Enable alpha indexed images",
+	    "macro_name": "LV_IMG_CF_ALPHA",
+	    "value": 1
+	},
+	"img_cache_def_size": {
+	    "help": "Default image cache size. Image caching keeps the images opened. LV_IMG_CACHE_DEF_SIZE must be >= 1 ",
+	    "macro_name": "LV_IMG_CACHE_DEF_SIZE",
+	    "value": 1
+	},
+	"enable_logging": {
+	    "help": "Enable the log module",
+	    "macro_name": "LV_USE_LOG",
+	    "value": 0
+	},
+	"log_level": {
+	    "help": "How important log should be added",
+	    "macro_name": "LV_LOG_LEVEL",
+	    "value": "LV_LOG_LEVEL_TRACE"
+	},
+	"theme_live_update": {
+	    "help": "Allow theme switching at run time. Uses 8..10 kB of RAM",
+	    "macro_name": "LV_THEME_LIVE_UPDATE",
+	    "value": 0
 	},
 	"use_theme_templ": {
 	    "help": "Template theme enabled",
-	    "macro_name": "USE_LV_THEME_TEMPL",
+	    "macro_name": "LV_USE_THEME_TEMPL",
 	    "value": 0
 	},
 	"use_theme_default": {
 	    "help": "Default theme enabled",
-	    "macro_name": "USE_LV_THEME_DEFAULT",
-	    "value": 1
+	    "macro_name": "LV_USE_THEME_DEFAULT",
+	    "value": 0
 	},
 	"use_theme_alien": {
 	    "help": "Alien theme enabled",
-	    "macro_name": "USE_LV_THEME_ALIEN",
-	    "value": 1
+	    "macro_name": "LV_USE_THEME_ALIEN",
+	    "value": 0
 	},
 	"use_theme_night": {
 	    "help": "Night theme enabled",
-	    "macro_name": "USE_LV_THEME_NIGHT",
-	    "value": 1
+	    "macro_name": "LV_USE_THEME_NIGHT",
+	    "value": 0
 	},
 	"use_theme_mono": {
 	    "help": "Mono theme enabled",
-	    "macro_name": "USE_LV_THEME_MONO",
-	    "value": 1
+	    "macro_name": "LV_USE_THEME_MONO",
+	    "value": 0
 	},
 	"use_theme_material": {
 	    "help": "Material theme enabled",
-	    "macro_name": "USE_LV_THEME_MATERIAL",
-	    "value": 1
+	    "macro_name": "LV_USE_THEME_MATERIAL",
+	    "value": 0
 	},
 	"use_theme_zen": {
 	    "help": "Zen theme enabled",
-	    "macro_name": "USE_LV_THEME_ZEN",
+	    "macro_name": "LV_USE_THEME_ZEN",
+	    "value": 0
+	},
+	"use_theme_nemo": {
+	    "help": "Nemo theme enabled",
+	    "macro_name": "LV_USE_THEME_NEMO",
+	    "value": 0
+	},
+	"enable_font_roboto_12": {
+	    "help": "Roboto size 12 font enabled",
+	    "macro_name": "LV_FONT_ROBOTO_12",
+	    "value": 0
+	},
+	"enable_font_roboto_16": {
+	    "help": "Roboto size 16 font enabled",
+	    "macro_name": "LV_FONT_ROBOTO_16",
 	    "value": 1
 	},
-	"use_lv_font_dejavu_10": {
-	    "help": "Enable dejavu 10 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_10",
+	"enable_font_roboto_22": {
+	    "help": "Roboto size 22 font enabled",
+	    "macro_name": "LV_FONT_ROBOTO_22",
 	    "value": 0
 	},
-	"use_lv_font_dejavu_10_latin_sup": {
-	    "help": "Enable dejavu 10 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_10_LATIN_SUP",
+	"enable_font_roboto_28": {
+	    "help": "Roboto size 28 font enabled",
+	    "macro_name": "LV_FONT_ROBOTO_28",
 	    "value": 0
 	},
-	"use_lv_font_dejavu_10_cyrillic": {
-	    "help": "Enable dejavu 10 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_10_CYRILLIC",
+	"enable_font_unscii_8": {
+	    "help": "UNSCII size 8 font enabled",
+	    "macro_name": "LV_FONT_UNSCII_8",
 	    "value": 0
 	},
-	"use_lv_font_symbol_10": {
-	    "help": "Enable symbol 10 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_SYMBOL_10",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_20": {
-	    "help": "Enable dejavu 20 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_20",
-	    "value": 4
-	},
-	"use_lv_font_dejavu_20_latin_sup": {
-	    "help": "Enable dejavu 20 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_20_LATIN_SUP",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_20_cyrillic": {
-	    "help": "Enable dejavu 20 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_20_CYRILLIC",
-	    "value": 0
-	},
-	"use_lv_font_symbol_20": {
-	    "help": "Enable symbol 20 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_SYMBOL_20",
-	    "value": 4
-	},
-	"use_lv_font_dejavu_30": {
-	    "help": "Enable dejavu 30 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_30",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_30_latin_sup": {
-	    "help": "Enable dejavu 30 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_30_LATIN_SUP",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_30_cyrillic": {
-	    "help": "Enable dejavu 30 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_30_CYRILLIC",
-	    "value": 0
-	},
-	"use_lv_font_symbol_30": {
-	    "help": "Enable symbol 30 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_SYMBOL_30",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_40": {
-	    "help": "Enable dejavu 40 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_40",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_40_latin_sup": {
-	    "help": "Enable dejavu 40 latin supplemental font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_40_LATIN_SUP",
-	    "value": 0
-	},
-	"use_lv_font_dejavu_40_cyrillic": {
-	    "help": "Enable dejavu 40 cyrillic font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_DEJAVU_40_CYRILLIC",
-	    "value": 0
-	},
-	"use_lv_font_symbol_40": {
-	    "help": "Enable symbol 40 font. Value can be 1, 2, 4, or 8 (specifies bit depth for each pixel)",
-	    "macro_name": "USE_LV_FONT_SYMBOL_40",
-	    "value": 0
-	},
-	"enable_labels": {
-	    "help": "Enable label objects",
-	    "macro_name": "USE_LV_LABEL",
+	"enable_realign": {
+	    "help": "enable `lv_obj_realaign()` based on `lv_obj_align()` parameters",
+	    "macro_name": "LV_USE_OBJ_REALIGN",
 	    "value": 1
 	},
-	"enable_images": {
-	    "help": "Enable image objects (dependencies: labels, filesystem)",
-	    "macro_name": "USE_LV_IMG",
-	    "value": 1
+	"enable_extra_click_area": {
+	    "help": "Enable to make the object clickable on a larger area.",
+	    "macro_name": "LV_USE_OBJ_REALIGN",
+	    "value": "LV_EXT_CLICK_AREA_OFF"
 	},
-	"enable_containers": {
-	    "help": "Enable container objects",
-	    "macro_name": "USE_LV_CONT",
-	    "value": 1
-	},
-	"enable_pages": {
-	    "help": "Enable page objects",
-	    "macro_name": "USE_LV_PAGE",
-	    "value": 1
-	},
-	"enable_windows": {
-	    "help": "Enable window objects",
-	    "macro_name": "USE_LV_WIN",
-	    "value": 1
-	},
-	"enable_tabviews": {
-	    "help": "Enable tab-view objects",
-	    "macro_name": "USE_LV_TABVIEW",
+	"enable_arc": {
+	    "help": "Enable arc objects",
+	    "macro_name": "LV_USE_ARC",
 	    "value": 1
 	},
 	"enable_bar": {
 	    "help": "Enable bar visualizers",
-	    "macro_name": "USE_LV_BAR",
-	    "value": 1
-	},
-	"enable_line_meter": {
-	    "help": "Enable line meter visualizers",
-	    "macro_name": "USE_LV_LMETER",
-	    "value": 1
-	},
-	"enable_gauge": {
-	    "help": "Enable gauge visualizers (requires bar, lmeter)",
-	    "macro_name": "USE_LV_GAUGE",
-	    "value": 1
-	},
-	"enable_chart": {
-	    "help": "Enable chart visualizers",
-	    "macro_name": "USE_LV_CHART",
-	    "value": 1
-	},
-	"enable_led": {
-	    "help": "Enable LED visualizers",
-	    "macro_name": "USE_LV_LED",
-	    "value": 1
-	},
-	"enable_message_box": {
-	    "help": "Enable message boxes (requires lv_rect, lv_btnm, lv_label)",
-	    "macro_name": "USE_LV_MBOX",
-	    "value": 1
-	},
-	"enable_text_area": {
-	    "help": "Enable text areas (requires lv_label, lv_page)",
-	    "macro_name": "USE_LV_TA",
+	    "macro_name": "LV_USE_BAR",
 	    "value": 1
 	},
 	"enable_button": {
 	    "help": "Enable buttons (requires lv_cont)",
-	    "macro_name": "USE_LV_BTN",
+	    "macro_name": "LV_USE_BTN",
 	    "value": 1
+	},
+	"enable_button_ink_effect": {
+	    "help": "Enable button-state animations - draw a circle on click",
+	    "macro_name": "LV_BTN_INK_EFFECT",
+	    "value": 0
 	},
 	"enable_buttom_matrix": {
 	    "help": "Enable button matrices",
-	    "macro_name": "USE_LV_BTNM",
+	    "macro_name": "LV_USE_BTNM",
 	    "value": 1
 	},
-	"enable_keyboard": {
-	    "help": "Enable keyboards (requires lv_btnm)",
-	    "macro_name": "USE_LV_KB",
+	"enable_calendar": {
+	    "help": "Enable calendar",
+	    "macro_name": "LV_USE_CALENDAR",
+	    "value": 1
+	},
+	"enable_canvas": {
+	    "help": "Enable canvas",
+	    "macro_name": "LV_USE_CANVAS",
 	    "value": 1
 	},
 	"enable_checkbox": {
 	    "help": "Enable check boxes (requires lv_btn, lv_label)",
-	    "macro_name": "USE_LV_CB",
+	    "macro_name": "LV_USE_CB",
 	    "value": 1
 	},
-	"enable_list": {
-	    "help": "Enable lists (requires lv_page, lv_btn, lv_label)",
-	    "macro_name": "USE_LV_LIST",
+	"enable_chart": {
+	    "help": "Enable chart visualizers",
+	    "macro_name": "LV_USE_CHART",
+	    "value": 1
+	},
+	"enable_containers": {
+	    "help": "Enable container objects",
+	    "macro_name": "LV_USE_CONT",
 	    "value": 1
 	},
 	"enable_dropdown_list": {
 	    "help": "Enable drop down lists (requires lv_page, lv_label)",
-	    "macro_name": "USE_LV_DDLIST",
+	    "macro_name": "LV_USE_DDLIST",
+	    "value": 1
+	},
+	"enable_gauge": {
+	    "help": "Enable gauge visualizers (requires bar, lmeter)",
+	    "macro_name": "LV_USE_GAUGE",
+	    "value": 1
+	},
+	"enable_images": {
+	    "help": "Enable image objects (dependencies: labels, filesystem)",
+	    "macro_name": "LV_USE_IMG",
+	    "value": 1
+	},
+	"enable_image_button": {
+	    "help": "Enable image buttons",
+	    "macro_name": "LV_USE_IMGBTN",
+	    "value": 1
+	},
+	"enable_keyboard": {
+	    "help": "Enable keyboards (requires lv_btnm)",
+	    "macro_name": "LV_USE_KB",
+	    "value": 1
+	},
+	"enable_labels": {
+	    "help": "Enable label objects",
+	    "macro_name": "LV_USE_LABEL",
+	    "value": 1
+	},
+	"enable_led": {
+	    "help": "Enable LED visualizers",
+	    "macro_name": "LV_USE_LED",
+	    "value": 1
+	},
+	"enable_line": {
+	    "help": "Enable lines",
+	    "macro_name": "LV_USE_LINE",
+	    "value": 1
+	},
+	"enable_list": {
+	    "help": "Enable lists (requires lv_page, lv_btn, lv_label)",
+	    "macro_name": "LV_USE_LIST",
+	    "value": 1
+	},
+	"enable_line_meter": {
+	    "help": "Enable line meter visualizers",
+	    "macro_name": "LV_USE_LMETER",
+	    "value": 1
+	},
+	"enable_message_box": {
+	    "help": "Enable message boxes (requires lv_rect, lv_btnm, lv_label)",
+	    "macro_name": "LV_USE_MBOX",
+	    "value": 1
+	},
+	"enable_pages": {
+	    "help": "Enable page objects",
+	    "macro_name": "LV_USE_PAGE",
+	    "value": 1
+	},
+	"enable_preload": {
+	    "help": "Enable preload spinner",
+	    "macro_name": "LV_USE_PRELOAD",
 	    "value": 1
 	},
 	"enable_roller": {
 	    "help": "Enable rollers (requires lv_dropdownlist)",
-	    "macro_name": "USE_LV_ROLLER",
+	    "macro_name": "LV_USE_ROLLER",
 	    "value": 1
 	},
 	"enable_slider": {
 	    "help": "Enable sliders (requires lv_bar)",
-	    "macro_name": "USE_LV_SLIDER",
+	    "macro_name": "LV_USE_SLIDER",
+	    "value": 1
+	},
+	"enable_spinbox": {
+	    "help": "Enable spinbox",
+	    "macro_name": "LV_USE_SPINBOX",
 	    "value": 1
 	},
 	"enable_switch": {
 	    "help": "Enable switches (requires lv_slider)",
-	    "macro_name": "USE_LV_SW",
+	    "macro_name": "LV_USE_SW",
 	    "value": 1
 	}
+	"enable_text_area": {
+	    "help": "Enable text areas (requires lv_label, lv_page)",
+	    "macro_name": "LV_USE_TA",
+	    "value": 1
+	},
+	"enable_table": {
+	    "help": "Enable tables",
+	    "macro_name": "LV_USE_TABLE",
+	    "value": 1
+	},
+	"enable_tabviews": {
+	    "help": "Enable tab-view objects",
+	    "macro_name": "LV_USE_TABVIEW",
+	    "value": 1
+	},
+	"enable_tileviews": {
+	    "help": "Enable tile-view objects",
+	    "macro_name": "LV_USE_TILEVIEW",
+	    "value": 1
+	},
+	"enable_windows": {
+	    "help": "Enable window objects",
+	    "macro_name": "LV_USE_WIN",
+	    "value": 1
+	},
     },
     "target_overrides": {
 	"STM32F407xG": {
