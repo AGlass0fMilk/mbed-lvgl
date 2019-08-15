@@ -11,6 +11,14 @@
 	    "macro_name": "LV_VER_RES_MAX",
 	    "value": 320
 	},
+	"default_display_buffer_size": {
+	    "help": "Default size of display buffer if not provided by user",
+	    "value": "LV_HOR_RES_MAX*10"
+	},
+	"enable_flush_monitoring": {
+	    "help": "Enable printing display flush time stats",
+	    "value": 0
+	},
 	"color_depth": {
 	    "help": "Color depth of display [1 /8 (RGB233) / 16 (RGB565) / 32 (ARGB8888)]",
 	    "accepted_values": [1, 8, 16, 32],
@@ -199,7 +207,7 @@
 	},
 	"enable_extra_click_area": {
 	    "help": "Enable to make the object clickable on a larger area.",
-	    "macro_name": "LV_USE_OBJ_REALIGN",
+	    "macro_name": "LV_USE_EXT_CLICK_AREA",
 	    "value": "LV_EXT_CLICK_AREA_OFF"
 	},
 	"enable_arc": {
