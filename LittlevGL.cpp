@@ -1,91 +1,79 @@
 /**
- * @file LittleVGL.cpp
- * @brief Mbed OS port of LittleVGL graphics library - C++ driver
+#include <LittlevGL.h>
+ * @file LittlevGL.cpp
+ * @brief Mbed OS port of LittlevGL graphics library - C++ driver
  *
  *  Created on: Jun 14, 2018
  *      Author: gdbeckstein
  */
 
-#include "LittleVGL.h"
+#include "LittlevGL.h"
 
 #include "platform/mbed_assert.h"
 #include "platform/mbed_debug.h"
 #include "platform/Callback.h"
 
-extern "C" {
-#include "lv_vdb.h"
-}
-
-LittleVGL::LittleVGL() :
-		_inited(false), _driver(NULL), _ticker()
+LittlevGL::LittlevGL() :
+		initialized(false), _driver(NULL), ticker()
 { }
 
-LittleVGL::~LittleVGL()
+LittlevGL::~LittlevGL()
 { }
 
-LittleVGL& LittleVGL::get_instance(void) {
-	static LittleVGL* singleton;
+LittlevGL& LittlevGL::get_instance(void) {
+	static LittlevGL* singleton;
 	if(singleton == NULL) {
-		singleton = new LittleVGL();
+		singleton = new LittlevGL();
 	}
 	return *singleton;
 }
 
-void LittleVGL::init(LVGLDriver* driver)
+void LittlevGL::init()
 {
-	// Keep a reference to the driver
-	_driver = driver;
-
 	// Initialize LittlevGL
 	lv_init();
+	initialized = true;
+}
 
-	// Initialize and register the display driver
-	lv_disp_drv_init(&_disp_drv_instance);
-	_disp_drv_instance.disp_flush	= &LittleVGL::flush;
+void LittlevGL::add_display_driver(LVGLDisplayDriver& driver) {
 
-	_disp_drv_instance.disp_fill 	= &LittleVGL::fill;
-	_disp_drv_instance.disp_map 	= &LittleVGL::map;
+	lv_disp_drv_t disp_drv;
+	lv_disp_drv_init(&disp_drv);
 
-#if USE_LV_GPU
+	// Set the resolution
+	driver.get_resolution(&disp_drv.hor_res, &disp_drv.ver_res);
 
-	_disp_drv_instance.mem_blend 	= &LittleVGL::gpu_blend;
-	_disp_drv_instance.mem_fill 	= &LittleVGL::gpu_fill;
+	// Set the display buffer(s)
+	disp_drv.buffer = driver.get_lv_buf();  /*Set an initialized buffer*/
 
-#endif
+	// Store a pointer to the display driver C++ instance in the user data field
+	disp_drv.user_data = (void*) &driver;
 
-#if LV_VDB_SIZE
-
-	if(_driver->has_vdb_func()) {
-		_disp_drv_instance.vdb_wr = &LittleVGL::vdb_write;
-	}
-
-#endif
-
-	lv_disp_drv_register(&_disp_drv_instance);
-
-	_inited = true;
+	disp_drv.flush_cb = &LittlevGL::flush;
+	lv_disp_t * disp;
+	disp = lv_disp_drv_register(&disp_drv); /*Register the driver and save the created display objects*/
 
 }
 
-void LittleVGL::start(void)
+void LittlevGL::start(void)
 {
-	_ticker.attach_us(mbed::callback(this, &LittleVGL::tick), 1000);
+	ticker.attach_us(mbed::callback(this, &LittlevGL::tick), 1000);
 }
 
-void LittleVGL::stop(void)
+void LittlevGL::stop(void)
 {
-	_ticker.detach();
+	ticker.detach();
 }
 
-void LittleVGL::update(void)
+void LittlevGL::update(void)
 {
 	lv_task_handler();
 }
 
-#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
-void LittleVGL::filesystem_ready(void)
+#if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
+void LittlevGL::filesystem_ready(void)
 {
-	if(_inited)
+	if(initialized)
 	{
 		// Initialize and register the filesystem driver
 		memset(&_fs_drv, 0, sizeof(lv_fs_drv_t));
@@ -95,21 +83,20 @@ void LittleVGL::filesystem_ready(void)
 	}
 	else
 	{
-		debug("littlevgl: filesystem cannot be initialized before LittleVGL\n");
+		debug("LittlevGL: filesystem cannot be initialized before LittlevGL\n");
 	}
 
 }
 #endif
 
-void LittleVGL::tick(void)
+void LittlevGL::tick(void)
 {
 	lv_tick_inc(1);
 }
 
-void LittleVGL::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
-		const lv_color_t* color_p)
+void LittlevGL::flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
-	LittleVGL& instance = LittleVGL::get_instance();
+	LittlevGL& instance = LittlevGL::get_instance();
 	if(instance._driver != NULL) {
 		instance._driver->flush(x1, y1, x2, y2, color_p);
 	}
@@ -118,19 +105,19 @@ void LittleVGL::flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 	lv_flush_ready();
 }
 
-void LittleVGL::map(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
+void LittlevGL::map(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 		const lv_color_t* color_p)
 {
-	LittleVGL& instance = LittleVGL::get_instance();
+	LittlevGL& instance = LittlevGL::get_instance();
 	if(instance._driver != NULL) {
 		instance._driver->map(x1, y1, x2, y2, color_p);
 	}
 }
 
-void LittleVGL::fill(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
+void LittlevGL::fill(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 		lv_color_t color)
 {
-	LittleVGL& instance = LittleVGL::get_instance();
+	LittlevGL& instance = LittlevGL::get_instance();
 	if(instance._driver != NULL) {
 		instance._driver->fill(x1, y1, x2, y2, color);
 	}
@@ -138,17 +125,17 @@ void LittleVGL::fill(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
 
 #if USE_LV_GPU
 
-void LittleVGL::gpu_blend(lv_color_t* dest, const lv_color_t* src, uint32_t length, lv_opt_t opa)
+void LittlevGL::gpu_blend(lv_color_t* dest, const lv_color_t* src, uint32_t length, lv_opt_t opa)
 {
-	LittleVGL& instance = LittleVGL::get_instance();
+	LittlevGL& instance = LittlevGL::get_instance();
 	if(instance._driver != NULL) {
 		instance._driver->gpu_blend(dest, src, length, opa);
 	}
 }
 
-void LittleVGL::gpu_fill(lv_color_t* dest, uint32_t length, lv_color_t color)
+void LittlevGL::gpu_fill(lv_color_t* dest, uint32_t length, lv_color_t color)
 {NoritakeLVGL
-	LittleVGL& instance = LittleVGL::get_instance();
+	LittlevGL& instance = LittlevGL::get_instance();
 	if(instance._driver != NULL) {
 		instance._driver->gpu_fill(dest, length, color);
 	}
@@ -158,12 +145,12 @@ void LittleVGL::gpu_fill(lv_color_t* dest, uint32_t length, lv_color_t color)
 
 #if LV_VDB_SIZE
 
-void LittleVGL::vdb_write(uint8_t* buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
+void LittlevGL::vdb_write(uint8_t* buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
 		lv_color_t color, lv_opa_t opa)
 {
-	LittleVGL& instance = LittleVGL::get_instance();
+	LittlevGL& instance = LittlevGL::get_instance();
 	if(instance._driver != NULL) {
-		LVGLDriver* drv = instance._driver;
+		LVGLDisplayDriver* drv = instance._driver;
 		drv->vdb_write(buf, buf_w, x, y, color, opa);
 	}
 }

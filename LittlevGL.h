@@ -6,28 +6,27 @@
  *      Author: gdbeckstein
  */
 #ifndef LVGL_LITTLEVGL_H_
+
 #define LVGL_LITTLEVGL_H_
 
-#include "LVGLDriver.h"
+#include <LVGLDisplayDriver.h>
 
 #include "platform/NonCopyable.h"
 #include "drivers/Ticker.h"
 
-extern "C" {
 #include "lv_hal_disp.h"
 #include "lv_task.h"
 #include "lv_obj.h"
-}
 
 #if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
 #include "platform/filesystem_wrapper.h"
 #endif
 
-class LittleVGL : private mbed::NonCopyable<LittleVGL>
+class LittlevGL : private mbed::NonCopyable<LittlevGL>
 {
 	public:
 
-		virtual ~LittleVGL();
+		virtual ~LittlevGL();
 
 		/**
 		 * @brief Return a single instance of the class
@@ -38,13 +37,21 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 		 *
 		 * @retval Singleton instance reference
 		 */
-		static LittleVGL& get_instance();
+		static LittlevGL& get_instance();
 
 		/**
 		 * Initializes LittleVGL
-		 * @param[in] driver Display driver instance to use
 		 */
-		void init(LVGLDriver* driver);
+		void init();
+
+		/**
+		 * Add a display driver to LittlevGL
+		 *
+		 * @param[in] driver Display driver instance to add
+		 *
+		 * @note May be called multiple times when several displays are used
+		 */
+		void add_display_driver(LVGLDisplayDriver& driver);
 
 		/**
 		 * Start the LittleVGL ticker
@@ -80,59 +87,38 @@ class LittleVGL : private mbed::NonCopyable<LittleVGL>
 	private:
 
 		/** Private constructor, as class is a singleton */
-		LittleVGL();
+		LittlevGL();
 
 		/*
 		 * @brief Internal function for bridging C/C++ to DisplayDriver instance
 		 */
-		static void flush(int32_t x1, int32_t y1, int32_t x2, int32_t y2, const lv_color_t* color_p);
-
-		/*
-		 * @brief Internal function for bridging C/C++ to DisplayDriver instance
-		 */
-		static void map(int32_t x1, int32_t y1, int32_t x2, int32_t y2, const lv_color_t* color_p);
-
-		/*
-		 * @brief Internal function for bridging C/C++ to DisplayDriver instance
-		 */
-		static void fill(int32_t x1, int32_t y1, int32_t x2, int32_t y2, lv_color_t color);
+		static void flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p);
 
 #if USE_LV_GPU
 
 		/*
 		 * @brief Internal function for bridging C/C++ to DisplayDriver instance
 		 */
-		static void gpu_blend(lv_color_t* dest, const lv_color_t* src, uint32_t length, lv_opt_t opa) = 0;
+		static void gpu_blend(lv_disp_drv_t * disp_drv, lv_color_t * dest, const lv_color_t * src, uint32_t length,
+				 lv_opa_t opa);
 
 		/*
 		 * @brief Internal function for bridging C/C++ to DisplayDriver instance
 		 */
-		static void gpu_fill(lv_color_t* dest, uint32_t length, lv_color_t color) = 0;
-
-#endif
-
-#if LV_VDB_SIZE
-
-		static void vdb_write(uint8_t * buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
-						lv_color_t color, lv_opa_t opa);
+		static void gpu_fill(lv_disp_drv_t * disp_drv, lv_color_t * dest_buf, lv_coord_t dest_width,
+				const lv_area_t * fill_area, lv_color_t color);
 
 #endif
 
 	protected:
 
 		/** Initialized flag */
-		bool _inited;
-
-		/** Underlying display driver instance */
-		LVGLDriver* _driver;
+		bool initialized;
 
 		/** Ticker for updating LittleVGL ticker */
-		mbed::Ticker _ticker;
+		mbed::Ticker ticker;
 
-		/** Display driver C structure */
-		lv_disp_drv_t _disp_drv_instance;
-
-#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+#if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
 		/** Filesystem driver */
 		lv_fs_drv_t _fs_drv;
 #endif
