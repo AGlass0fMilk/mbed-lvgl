@@ -14,7 +14,7 @@
 #include "platform/Callback.h"
 
 LittlevGL::LittlevGL() :
-		initialized(false), ticker(), displays(), num_displays(0)
+		initialized(false), ticker()
 { }
 
 LittlevGL::~LittlevGL()
@@ -36,9 +36,6 @@ void LittlevGL::init()
 }
 
 void LittlevGL::add_display_driver(LVGLDisplayDriver& driver) {
-
-	// Disallow adding more than configured maximum number of displays
-	MBED_ASSERT(num_displays <= MBED_CONF_MBED_LVGL_MAX_DISPLAYS);
 
 	lv_disp_drv_t disp_drv;
 	lv_disp_drv_init(&disp_drv);
@@ -76,10 +73,18 @@ void LittlevGL::add_display_driver(LVGLDisplayDriver& driver) {
 
 	lv_disp_t * disp;
 	disp = lv_disp_drv_register(&disp_drv); /*Register the driver and save the created display objects*/
-	if(disp != NULL) {
-		displays[num_displays] = disp;
-		num_displays++;
-	}
+
+	/** Make sure no issues happened */
+	MBED_ASSERT(disp != NULL);
+
+	driver.set_lv_disp_obj(disp);
+
+}
+
+void LittlevGL::set_default_display(LVGLDisplayDriver& driver) {
+	lv_disp_t* disp = driver.get_lv_disp_obj();
+	MBED_ASSERT(disp != NULL);
+	lv_disp_set_default(disp);
 }
 
 void LittlevGL::start(void)

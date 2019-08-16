@@ -54,6 +54,17 @@ class LittlevGL : private mbed::NonCopyable<LittlevGL>
 		void add_display_driver(LVGLDisplayDriver& driver);
 
 		/**
+		 * Select the given display to be used in all lvgl
+		 * object creation calls until a new display is selected
+		 *
+		 * @param[in] driver Display driver to be used
+		 *
+		 * @note The driver must already be added to LittlevGL before
+		 * calling this or the program will crash
+		 */
+		void set_default_display(LVGLDisplayDriver& driver);
+
+		/**
 		 * Start the LittleVGL ticker
 		 */
 		void start(void);
@@ -130,9 +141,6 @@ class LittlevGL : private mbed::NonCopyable<LittlevGL>
 		/** Ticker for updating LittleVGL ticker */
 		mbed::Ticker ticker;
 
-		/** Registered displays */
-		lv_disp_t* displays[MBED_CONF_MBED_LVGL_MAX_DISPLAYS];
-		unsigned int num_displays;
 };
 
 

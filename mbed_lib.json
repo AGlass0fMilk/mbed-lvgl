@@ -20,7 +20,7 @@
 	    "value": 0
 	},
 	"max_displays": {
-	    "help": "Maximum number of displays that can be registered"
+	    "help": "Maximum number of displays that can be registered",
 	    "value": 2
 	},
 	"color_depth": {

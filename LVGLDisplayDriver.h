@@ -17,10 +17,10 @@
 class LVGLDisplayDriver
 {
 
+public:
+
 	// Declare LittlevGL a friend class
 	friend class LittlevGL;
-
-public:
 
 		/**
 		 * Constructor for LVGLDisplayDriver
@@ -31,10 +31,8 @@ public:
 		 * @note For double-buffered operation, the display buffers MUST be the same size!
 		 */
 		LVGLDisplayDriver(mbed::Span<lv_color_t> primary_display_buffer = mbed::Span<lv_color_t, 0>(),
-				mbed::Span<lv_color_t> secondary_display_buffer = mbed::Span<lv_color_t, 0>()) {
-
-			hor_res = LV_HOR_RES_MAX;
-			ver_res = LV_VER_RES_MAX;
+				mbed::Span<lv_color_t> secondary_display_buffer = mbed::Span<lv_color_t, 0>()) :
+				hor_res(LV_HOR_RES_MAX), ver_res(LV_VER_RES_MAX), lv_disp_obj(NULL) {
 
 			// If the user doesn't provide a display buffer to use, dynamically allocate one
 			if(primary_display_buffer.empty()) {
@@ -54,8 +52,7 @@ public:
 			this->secondary_display_buffer = secondary_display_buffer;
 
 			// Fill out the lv_disp_buf struct
-			lv_disp_buf_init(&this->lv_buf, this->primary_display_buffer.data(),
-					this->secondary_display_buffer.data(), this->primary_display_buffer.size());
+			initialize_display_buffers();
 		}
 
 		virtual ~LVGLDisplayDriver() {
@@ -95,7 +92,13 @@ public:
 			*ver_res = this->ver_res;
 		}
 
-protected:
+/* TODO - figure out why making LittlevGL a friend class does not
+ * allow access to protected member functions...
+ *
+ * It is understandable for virtual methods but still doesn't work even
+ * for concrete methods! Compiler issue?
+ */
+//protected:
 
 		/*
 		 * @brief Flush the content of the internal buffer to the specific area on the display
@@ -146,8 +149,35 @@ protected:
 
 #endif
 
+// TODO - see above comment about friend declaration not working
+//protected:
+
 		lv_disp_buf_t* get_lv_buf(void) {
 			return &lv_buf;
+		}
+
+		void set_lv_disp_obj(lv_disp_t* disp_obj) {
+			lv_disp_obj = disp_obj;
+		}
+
+		/**
+		 * Gets the display's underlying LVGL handle
+		 *
+		 * @retval pointer to lvgl display handle
+		 */
+		lv_disp_t* get_lv_disp_obj(void) {
+			return lv_disp_obj;
+		}
+
+protected:
+
+		/**
+		 * Internal function to initialize the underlying LittlevGL
+		 * display buffer structure
+		 */
+		void initialize_display_buffers(void) {
+			lv_disp_buf_init(&this->lv_buf, this->primary_display_buffer.data(),
+					this->secondary_display_buffer.data(), this->primary_display_buffer.size());
 		}
 
 protected:
@@ -168,6 +198,9 @@ private:
 
 		/** Keep track of who owns the display buffer */
 		bool user_provided_display_buffer;
+
+		/** C struct for accessing LVGL display object */
+		lv_disp_t* lv_disp_obj;
 
 };
 

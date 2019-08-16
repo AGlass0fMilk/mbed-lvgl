@@ -35,7 +35,7 @@ void mbed_lvgl_fs_wrapper_default(lv_fs_drv_t* fs_drv);
  * @return LV_FS_RES_OK: no error, the file is opened
  *         any error from lv_fs_res_t enum
  */
-lv_fs_res_t lv_fs_wrapper_open(void* file_p, const char* fn, lv_fs_mode_t mode);
+lv_fs_res_t lv_fs_wrapper_open(lv_fs_drv_t* fs_drv, void* file_p, const char* fn, lv_fs_mode_t mode);
 
 /**
  * Close an opened file
@@ -43,7 +43,7 @@ lv_fs_res_t lv_fs_wrapper_open(void* file_p, const char* fn, lv_fs_mode_t mode);
  * @return LV_FS_RES_OK: no error, the file is read
  *         any error from lv__fs_res_t enum
  */
-lv_fs_res_t lv_fs_wrapper_close(void* file_p);
+lv_fs_res_t lv_fs_wrapper_close(lv_fs_drv_t* fs_drv, void* file_p);
 
 /**
  * Read data from an opened file
@@ -54,7 +54,7 @@ lv_fs_res_t lv_fs_wrapper_close(void* file_p);
  * @return LV_FS_RES_OK: no error, the file is read
  *         any error from lv__fs_res_t enum
  */
-lv_fs_res_t lv_fs_wrapper_read(void* file_p, void* buf, uint32_t btr, uint32_t* br);
+lv_fs_res_t lv_fs_wrapper_read(lv_fs_drv_t* fs_drv, void* file_p, void* buf, uint32_t btr, uint32_t* br);
 
 /**
  * Set the read write pointer. Also expand the file size if necessary.
@@ -63,7 +63,7 @@ lv_fs_res_t lv_fs_wrapper_read(void* file_p, void* buf, uint32_t btr, uint32_t* 
  * @return LV_FS_RES_OK: no error, the file is read
  *         any error from lv__fs_res_t enum
  */
-lv_fs_res_t lv_fs_wrapper_seek(void* file_p, uint32_t pos);
+lv_fs_res_t lv_fs_wrapper_seek(lv_fs_drv_t* fs_drv, void* file_p, uint32_t pos);
 
 /**
  * Give the position of the read write pointer
@@ -72,7 +72,7 @@ lv_fs_res_t lv_fs_wrapper_seek(void* file_p, uint32_t pos);
  * @return LV_FS_RES_OK: no error, the file is read
  *         any error from lv__fs_res_t enum
  */
-lv_fs_res_t lv_fs_wrapper_tell(void* file_p, uint32_t* pos_p);
+lv_fs_res_t lv_fs_wrapper_tell(lv_fs_drv_t* fs_drv, void* file_p, uint32_t* pos_p);
 
 #ifdef __cplusplus
 }
