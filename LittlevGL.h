@@ -18,7 +18,7 @@
 #include "lv_task.h"
 #include "lv_obj.h"
 
-#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+#if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
 #include "platform/filesystem_wrapper.h"
 #endif
 
@@ -69,7 +69,7 @@ class LittlevGL : private mbed::NonCopyable<LittlevGL>
 		 */
 		void update(void);
 
-#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+#if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
 		/**
 		 * Tells littlevgl that a filesystem is ready to use
 		 * @note this MUST be called AFTER LittleVGL::init() or your program will halt!
@@ -110,6 +110,18 @@ class LittlevGL : private mbed::NonCopyable<LittlevGL>
 
 #endif
 
+		/** OPTIONAL: Extend the invalidated areas to match with the display drivers requirements
+		 * E.g. round `y` to, 8, 16 ..) on a monochrome display*/
+		static void round_lv_area(lv_disp_drv_t * disp_drv, lv_area_t * area);
+
+		/*Optional: Set a pixel in a buffer according to the requirements of the display*/
+		static void set_pixel(lv_disp_drv_t * disp_drv, uint8_t * buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
+				lv_color_t color, lv_opa_t opa);
+
+		/** OPTIONAL: Called after every refresh cycle to tell the rendering and flushing time + the
+		 * number of flushed pixels */
+		static void monitor(lv_disp_drv_t * disp_drv, uint32_t time, uint32_t px);
+
 	protected:
 
 		/** Initialized flag */
@@ -118,11 +130,9 @@ class LittlevGL : private mbed::NonCopyable<LittlevGL>
 		/** Ticker for updating LittleVGL ticker */
 		mbed::Ticker ticker;
 
-#if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
-		/** Filesystem driver */
-		lv_fs_drv_t _fs_drv;
-#endif
-
+		/** Registered displays */
+		lv_disp_t* displays[MBED_CONF_MBED_LVGL_MAX_DISPLAYS];
+		unsigned int num_displays;
 };
 
 

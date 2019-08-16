@@ -19,6 +19,10 @@
 	    "help": "Enable printing display flush time stats",
 	    "value": 0
 	},
+	"max_displays": {
+	    "help": "Maximum number of displays that can be registered"
+	    "value": 2
+	},
 	"color_depth": {
 	    "help": "Color depth of display [1 /8 (RGB233) / 16 (RGB565) / 32 (ARGB8888)]",
 	    "accepted_values": [1, 8, 16, 32],

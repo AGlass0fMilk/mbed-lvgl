@@ -14,7 +14,7 @@
 #include "platform/Callback.h"
 
 LittlevGL::LittlevGL() :
-		initialized(false), _driver(NULL), ticker()
+		initialized(false), ticker(), displays(), num_displays(0)
 { }
 
 LittlevGL::~LittlevGL()
@@ -37,6 +37,9 @@ void LittlevGL::init()
 
 void LittlevGL::add_display_driver(LVGLDisplayDriver& driver) {
 
+	// Disallow adding more than configured maximum number of displays
+	MBED_ASSERT(num_displays <= MBED_CONF_MBED_LVGL_MAX_DISPLAYS);
+
 	lv_disp_drv_t disp_drv;
 	lv_disp_drv_init(&disp_drv);
 
@@ -49,10 +52,34 @@ void LittlevGL::add_display_driver(LVGLDisplayDriver& driver) {
 	// Store a pointer to the display driver C++ instance in the user data field
 	disp_drv.user_data = (void*) &driver;
 
+	// This class's flush implementation delegates to the correct display driver instance
 	disp_drv.flush_cb = &LittlevGL::flush;
+
+#if USE_LV_GPU
+
+	disp_drv.gpu_blend_cb = &LittlevGL::gpu_blend;
+	disp_drv.gpu_fill_cb = &LittlevGL::gpu_fill;
+
+#endif
+
+	if(driver.has_rounder()) {
+		disp_drv.rounder_cb = &LittlevGL::round_lv_area;
+	}
+
+	if(driver.has_pix_write_func()) {
+		disp_drv.set_px_cb = &LittlevGL::set_pixel;
+	}
+
+#if MBED_CONF_MBED_LVGL_ENABLE_FLUSH_MONITORING
+	disp_drv.monitor_cb = &LittlevGL::monitor;
+#endif
+
 	lv_disp_t * disp;
 	disp = lv_disp_drv_register(&disp_drv); /*Register the driver and save the created display objects*/
-
+	if(disp != NULL) {
+		displays[num_displays] = disp;
+		num_displays++;
+	}
 }
 
 void LittlevGL::start(void)
@@ -75,11 +102,12 @@ void LittlevGL::filesystem_ready(void)
 {
 	if(initialized)
 	{
+		lv_fs_drv_t fs_drv;
 		// Initialize and register the filesystem driver
-		memset(&_fs_drv, 0, sizeof(lv_fs_drv_t));
-		mbed_lvgl_fs_wrapper_default(&_fs_drv);
-		_fs_drv.letter = 'M';
-		lv_fs_add_drv(&_fs_drv);
+		lv_fs_drv_init(&fs_drv);
+		mbed_lvgl_fs_wrapper_default(&fs_drv);
+		fs_drv.letter = 'M';
+		lv_fs_drv_register(&fs_drv);
 	}
 	else
 	{
@@ -96,31 +124,15 @@ void LittlevGL::tick(void)
 
 void LittlevGL::flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p)
 {
-	LittlevGL& instance = LittlevGL::get_instance();
-	if(instance._driver != NULL) {
-		instance._driver->flush(x1, y1, x2, y2, color_p);
-	}
+	// Retrieve the C++ display driver instance (stored in user_data)
+	LVGLDisplayDriver* driver = (LVGLDisplayDriver*)(disp_drv->user_data);
+	MBED_ASSERT(driver != NULL);
+
+	// Call the driver's flush function
+	driver->flush(disp_drv, area, color_p);
 
 	// Tell lvgl flush is done
-	lv_flush_ready();
-}
-
-void LittlevGL::map(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
-		const lv_color_t* color_p)
-{
-	LittlevGL& instance = LittlevGL::get_instance();
-	if(instance._driver != NULL) {
-		instance._driver->map(x1, y1, x2, y2, color_p);
-	}
-}
-
-void LittlevGL::fill(int32_t x1, int32_t y1, int32_t x2, int32_t y2,
-		lv_color_t color)
-{
-	LittlevGL& instance = LittlevGL::get_instance();
-	if(instance._driver != NULL) {
-		instance._driver->fill(x1, y1, x2, y2, color);
-	}
+	lv_disp_flush_ready(disp_drv);
 }
 
 #if USE_LV_GPU
@@ -143,17 +155,32 @@ void LittlevGL::gpu_fill(lv_color_t* dest, uint32_t length, lv_color_t color)
 
 #endif
 
-#if LV_VDB_SIZE
+void LittlevGL::round_lv_area(lv_disp_drv_t* disp_drv, lv_area_t* area) {
+	// Retrieve the C++ display driver instance (stored in user_data)
+	LVGLDisplayDriver* driver = (LVGLDisplayDriver*)(disp_drv->user_data);
+	MBED_ASSERT(driver != NULL);
 
-void LittlevGL::vdb_write(uint8_t* buf, lv_coord_t buf_w, lv_coord_t x, lv_coord_t y,
-		lv_color_t color, lv_opa_t opa)
-{
-	LittlevGL& instance = LittlevGL::get_instance();
-	if(instance._driver != NULL) {
-		LVGLDisplayDriver* drv = instance._driver;
-		drv->vdb_write(buf, buf_w, x, y, color, opa);
-	}
+	driver->round_lv_area(disp_drv, area);
+
 }
 
+void LittlevGL::set_pixel(lv_disp_drv_t* disp_drv, uint8_t* buf,
+		lv_coord_t buf_w, lv_coord_t x, lv_coord_t y, lv_color_t color,
+		lv_opa_t opa) {
+	// Retrieve the C++ display driver instance (stored in user_data)
+	LVGLDisplayDriver* driver = (LVGLDisplayDriver*)(disp_drv->user_data);
+	MBED_ASSERT(driver != NULL);
+
+	driver->set_pixel(disp_drv, buf, buf_w, x, y, color, opa);
+}
+
+void LittlevGL::monitor(lv_disp_drv_t* disp_drv, uint32_t time, uint32_t px) {
+#if MBED_CONF_MBED_LVGL_ENABLE_FLUSH_MONITORING
+	// Retrieve the C++ display driver instance (stored in user_data)
+	LVGLDisplayDriver* driver = (LVGLDisplayDriver*)(disp_drv->user_data);
+	MBED_ASSERT(driver != NULL);
+
+	driver->monitor(disp_drv, time, px);
 #endif
+}
 

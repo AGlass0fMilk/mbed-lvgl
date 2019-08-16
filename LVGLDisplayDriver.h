@@ -95,10 +95,12 @@ public:
 			*ver_res = this->ver_res;
 		}
 
+protected:
+
 		/*
 		 * @brief Flush the content of the internal buffer to the specific area on the display
 		 * You can use DMA or any hardware acceleration to do this operation in the background but
-		 * this->flush_ready(disp_drv) has to be called when finished
+		 * this function must block the caller until the transfer is complete!
 		 */
 		virtual void flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_color_t * color_p) = 0;
 
@@ -144,14 +146,8 @@ public:
 
 #endif
 
-protected:
-
 		lv_disp_buf_t* get_lv_buf(void) {
 			return &lv_buf;
-		}
-
-		void flush_ready(lv_disp_drv_t* disp_drv) {
-			lv_disp_flush_ready(disp_drv);
 		}
 
 protected:
