@@ -75,8 +75,8 @@ public:
 		 * the maximums set in your configuration
 		 */
 		void set_resolution(lv_coord_t new_hor_res, lv_coord_t new_ver_res) {
-			MBED_ASSERT(new_hor_res < LV_HOR_RES_MAX);
-			MBED_ASSERT(new_ver_res < LV_VER_RES_MAX);
+			MBED_ASSERT(new_hor_res <= LV_HOR_RES_MAX);
+			MBED_ASSERT(new_ver_res <= LV_VER_RES_MAX);
 			hor_res = new_hor_res;
 			ver_res = new_ver_res;
 		}

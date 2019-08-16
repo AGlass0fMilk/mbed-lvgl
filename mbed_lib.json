@@ -204,6 +204,11 @@
 	    "macro_name": "LV_FONT_UNSCII_8",
 	    "value": 0
 	},
+	"default_font": {
+	    "help": "Pointer to default font to be used",
+	    "macro_name": "LV_FONT_DEFAULT",
+	    "value": "&lv_font_roboto_16"
+	},
 	"enable_realign": {
 	    "help": "enable `lv_obj_realaign()` based on `lv_obj_align()` parameters",
 	    "macro_name": "LV_USE_OBJ_REALIGN",
