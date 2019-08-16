@@ -10,7 +10,7 @@
  *      Author: gdbeckstein
  */
 
-#if MBED_CONF_FILESYSTEM_PRESENT && USE_LV_FILESYSTEM
+#if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
 
 #include "filesystem_wrapper.h"
 #include "platform/mbed_retarget.h"
@@ -23,11 +23,11 @@ void mbed_lvgl_fs_wrapper_default(lv_fs_drv_t* fs_drv)
 	// Set up the defaults for mbed-lvgl filesystem wrapper driver struct
 	fs_drv->file_size	= sizeof(file_ptr_t);
 	fs_drv->letter		= 'A';
-	fs_drv->open 		= lv_fs_wrapper_open;
-	fs_drv->close 		= lv_fs_wrapper_close;
-	fs_drv->read 		= lv_fs_wrapper_read;
-	fs_drv->seek 		= lv_fs_wrapper_seek;
-	fs_drv->tell 		= lv_fs_wrapper_tell;
+	fs_drv->open_cb 		= lv_fs_wrapper_open;
+	fs_drv->close_cb		= lv_fs_wrapper_close;
+	fs_drv->read_cb 		= lv_fs_wrapper_read;
+	fs_drv->seek_cb 		= lv_fs_wrapper_seek;
+	fs_drv->tell_cb 		= lv_fs_wrapper_tell;
 }
 
 lv_fs_res_t lv_fs_wrapper_open(void* file_p, const char* fn, lv_fs_mode_t mode)
