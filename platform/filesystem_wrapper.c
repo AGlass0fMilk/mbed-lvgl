@@ -1,13 +1,18 @@
-/**
- * @file filesystem_wrapper.c
- * @brief Filesystem wrapper functions for littlevgl on MBed-OS
+/* LittlevGL for Mbed-OS library
+ * Copyright (c) 2018-2019 George "AGlass0fMilk" Beckstein
+ * SPDX-License-Identifier: Apache-2.0
  *
- * This provides wrapper functions that translate
- * mbed's retargeted filesystem/stdio to the API used by
- * lvgl. This allows you to load images from external
- * external non-volatile storage, among other things
- *  Created on: Aug 1, 2018
- *      Author: gdbeckstein
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #if MBED_CONF_FILESYSTEM_PRESENT && LV_USE_FILESYSTEM
