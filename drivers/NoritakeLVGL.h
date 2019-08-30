@@ -23,7 +23,7 @@
 #include <LVGLDisplayDriver.h>
 
 #if (LV_COLOR_DEPTH != 1)
-#error LV_COLOR_DEPTH must be set to 1 for the NoritakeVFD monochrome display
+#warning LV_COLOR_DEPTH must be set to 1 for the NoritakeVFD monochrome display to work properly
 #endif
 
 class NoritakeLVGL : public LVGLDisplayDriver, public NoritakeVFD {
