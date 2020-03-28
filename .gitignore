@@ -4,3 +4,6 @@
 .settings/
 mbed_settings.py
 mbed-os.lib
+drivers/SSD13006/ssd1306/
+uDisplay/
+lvgl/
